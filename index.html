@@ -1,229 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Azure Central Colorado</title>
-<style>
-* { box-sizing: border-box; margin:0; padding:0; }
-body, html {
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background:#0c1e33; color:#b0c8e3; scroll-behavior:smooth;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Azure Central Colorado</title>
+  <style>
+    * { box‑sizing: border-box; margin:0; padding:0; }
+    body, html {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0c1e33; color:#b0c8e3; scroll-behavior: smooth;
+    }
 
-<!-- Splash Screen -->
-<div id="splash">
-  <div style="text-align:center;">
-    <img src="https://cdn.discordapp.com/attachments/1430654910734667817/1433073192489975819/Azure-Central_1.png?ex=69035cea&is=69020b6a&hm=6a0d23bec3abb86f27df70fa807285c73517617983206e7343987b2f0d8a5c0b&" 
-         alt="Server Logo"
-         style="width:150px; margin-bottom:20px; animation:fadeInOutLogo 4s ease forwards;">
-    <h1>Azure Central Colorado</h1>
-  </div>
-</div>
+    /* Splash */
+    #splash {
+      position:fixed; top:0; left:0; right:0; bottom:0;
+      display:flex; flex-direction:column; justify-content:center; align-items:center;
+      background:#0c1e33; z-index:9999;
+    }
+    #splash div { text-align:center; }
+    #splash h1 {
+      font-size:3rem; font-weight:900; color:#4da3ff;
+      animation:fadeInOutText 4s ease forwards;
+    }
+    #splash img {
+      width:150px; margin-bottom:20px;
+      animation:fadeInOutLogo 4s ease forwards, bounceLogo 2s infinite;
+    }
+    @keyframes fadeInOutText { 0%,100%{opacity:0;} 50%{opacity:1;} }
+    @keyframes fadeInOutLogo { 0%,100%{opacity:0; transform:scale(0.8);} 50%{opacity:1; transform:scale(1);} }
+    @keyframes bounceLogo {
+      0%,100%{transform:translateY(0);} 25%{transform:translateY(-15px);} 50%{transform:translateY(0);} 75%{transform:translateY(-7px);}
+    }
 
-<style>
-/* Splash Animations */
-@keyframes fadeInOutText {0%,100%{opacity:0;}50%{opacity:1;}}
-@keyframes fadeInOutLogo {0%,100%{opacity:0; transform:scale(0.8);}50%{opacity:1; transform:scale(1);}}
-#splash h1 {
-  font-size:3rem; font-weight:900; color:#4da3ff;
-  animation:fadeInOutText 4s ease forwards;
-}
-</style>
+    /* Main Content */
+    #main-content { display:none; padding:20px; transition: opacity 1s ease; }
+    #main-content.active { display:block; opacity:1; }
 
-/* Main Content */
-#main-content { display:none; padding:20px; transition:opacity 1s ease; }
-#main-content.active { display:block; opacity:1; }
+    /* Navbar */
+    nav {
+      background:#144272; display:flex; align-items:center; padding:10px 20px;
+      position:sticky; top:0; z-index:50;
+    }
+    nav h2 { color:#a0c8ff; margin-right:25px; font-weight:700; }
+    nav button {
+      background:transparent; color:#d1e3ff; border:2px solid #4da3ff;
+      margin:0 8px; padding:8px 14px; font-weight:600; border-radius:6px;
+      cursor:pointer; transition:0.3s;
+    }
+    nav button:hover { background:#4da3ff; color:#fff; transform:scale(1.1); }
+    nav button:active { transform:scale(0.95); }
 
-/* Navbar */
-nav {
-  background:#144272; display:flex; align-items:center; padding:10px 20px;
-  position:sticky; top:0; z-index:50;
-}
-nav h2 { color:#a0c8ff; margin-right:25px; font-weight:700; }
-nav button {
-  background:transparent; color:#d1e3ff; border:2px solid #4da3ff;
-  margin:0 8px; padding:8px 14px; font-weight:600; border-radius:6px;
-  cursor:pointer; transition:0.3s;
-}
-nav button:hover { background:#4da3ff; color:#fff; transform:scale(1.1);}
-nav button:active { transform:scale(0.95); }
+    /* Server Logo top‑right */
+    #serverLogo {
+      position:fixed; top:10px; right:10px; width:55px; height:55px; z-index:60;
+      border-radius:10px; box-shadow:0 0 10px #4da3ff; cursor:pointer;
+      transition:0.4s ease;
+    }
+    #serverLogo:hover {
+      transform:scale(1.1);
+      box-shadow:0 0 20px #78aaff, 0 0 40px #4da3ff;
+    }
 
-/* Server logo top-right */
-#serverLogo {
-  position:fixed; top:10px; right:10px; width:55px; height:55px; z-index:60;
-  border-radius:10px; box-shadow:0 0 10px #4da3ff; cursor:pointer;
-  transition:0.4s ease;
-}
-#serverLogo:hover {
-  transform:scale(1.1);
-  box-shadow:0 0 20px #78aaff, 0 0 40px #4da3ff;
-}
+    /* Sections */
+    section {
+      max-width:900px; margin:40px auto; background:#133a6c;
+      padding:20px; border-radius:10px; box-shadow:0 0 15px #0b2e61;
+      opacity:0; transform:translateY(50px); transition: all 1s ease;
+    }
+    section.visible { opacity:1; transform:translateY(0); }
+    section h3 { color:#78aaff; margin-top:0; }
+    section p { line-height:1.6; color:#d0e1ff; }
 
-/* Sections */
-section {
-  max-width:900px; margin:40px auto; background:#133a6c;
-  padding:20px; border-radius:10px; box-shadow:0 0 15px #0b2e61;
-  opacity:0; transform:translateY(50px); transition:all 1s ease;
-}
-section.visible { opacity:1; transform:translateY(0);}
-section h3 { color:#78aaff; margin-top:0; }
-section p { line-height:1.6; color:#d0e1ff; }
+    /* Modal */
+    .modal {
+      display:none; position:fixed; z-index:999; padding-top:80px;
+      left:0; top:0; width:100%; height:100%; overflow-y:auto;
+      background:rgba(0,0,0,0.75);
+    }
+    .modal-content {
+      background:#102c55; margin:auto; padding:20px; border-radius:12px;
+      max-width:420px; max-height:90vh; overflow-y:auto; box-shadow:0 0 20px #4da3ff;
+      position:relative;
+    }
+    .close-btn {
+      color:#a0c8ff; position:absolute; top:10px; right:15px;
+      font-size:25px; font-weight:bold; cursor:pointer; user-select:none; transition:0.3s;
+    }
+    .close-btn:hover { color:#4da3ff; }
 
-/* Modal */
-.modal {
-  display:none; position:fixed; z-index:999; padding-top:80px;
-  left:0; top:0; width:100%; height:100%; overflow-y:auto;
-  background:rgba(0,0,0,0.75);
-}
-.modal-content {
-  background:#102c55; margin:auto; padding:20px; border-radius:12px;
-  max-width:420px; max-height:90vh; overflow-y:auto; box-shadow:0 0 20px #4da3ff;
-  position:relative;
-}
-.close-btn {
-  color:#a0c8ff; position:absolute; top:10px; right:15px;
-  font-size:25px; font-weight:bold; cursor:pointer; user-select:none; transition:0.3s;
-}
-.close-btn:hover { color:#4da3ff; }
+    #sneakPeekSection { display:none; }
 
-#sneakPeekSection { display:none; }
+    /* Sneak Peek button */
+    #sneakPeekBtn {
+      background:#4da3ff; color:#fff; border:none; padding:10px 18px;
+      font-weight:bold; border-radius:6px; cursor:pointer; transition:0.3s;
+    }
+    #sneakPeekBtn:hover { transform:scale(1.05); background:#78aaff; }
+    #sneakPeekBtn:active { transform:scale(0.95); }
 
-/* Smooth hover for sneak peek button */
-#sneakPeekBtn {
-  background:#4da3ff; color:#fff; border:none; padding:10px 18px;
-  font-weight:bold; border-radius:6px; cursor:pointer; transition:0.3s;
-}
-#sneakPeekBtn:hover { transform:scale(1.05); background:#78aaff;}
-#sneakPeekBtn:active { transform:scale(0.95);}
-
-/* Footer */
-footer {
-  background:#102c55; color:#d0e1ff; text-align:center; padding:15px 0; margin-top:40px;
-  display:flex; align-items:center; justify-content:center;
-  gap:10px; font-weight:bold; font-size:1rem;
-}
-footer img {
-  width:30px; height:30px; border-radius:50%;
-  box-shadow:0 0 5px #4da3ff; transition:0.3s ease;
-}
-footer img:hover {
-  transform:scale(1.2);
-  box-shadow:0 0 15px #4da3ff;
-}
-</style>
+    /* Footer */
+    footer {
+      background:#102c55; color:#d0e1ff; text-align:center; padding:15px 0; margin-top:40px;
+      display:flex; align-items:center; justify-content:center;
+      gap:10px; font-weight:bold; font-size:1rem;
+    }
+    footer img {
+      width:30px; height:30px; border-radius:50%;
+      box-shadow:0 0 5px #4da3ff; transition:0.3s ease;
+    }
+    footer img:hover {
+      transform:scale(1.2);
+      box-shadow:0 0 15px #4da3ff;
+    }
+  </style>
 </head>
 <body>
 
-<!-- Server Logo (clickable) -->
-<img src="https://cdn.discordapp.com/attachments/1430654910734667817/1433073192489975819/Azure-Central_1.png?ex=69035cea&is=69020b6a&hm=6a0d23bec3abb86f27df70fa807285c73517617983206e7343987b2f0d8a5c0b&"
-     alt="Server Logo"
-     id="serverLogo"
-     onclick="document.getElementById('discordModal').style.display='block';">
+  <!-- Server Logo (clickable) -->
+  <img src="https://cdn.discordapp.com/attachments/1430654910734667817/1433073192489975819/Azure-Central_1.png?ex=69035cea&is=69020b6a&hm=6a0d23bec3abb86f27df70fa807285c73517617983206e7343987b2f0d8a5c0b&"
+       alt="Server Logo"
+       id="serverLogo"
+       onclick="document.getElementById('discordModal').style.display='block';">
 
-<!-- Splash Screen -->
-<div id="splash">
-  <h1>Azure Central Colorado</h1>
-</div>
-
-<!-- Main Content -->
-<div id="main-content">
-  <nav>
-    <h2>Azure Central Colorado</h2>
-    <button id="staffBtn">Staff Handbook</button>
-    <button id="chainBtn">Chain of Command</button>
-    <button id="boosterBtn">Discord Booster Perks</button>
-  </nav>
-
-  <section id="aboutUs">
-    <h3>About Us</h3>
-    <p>Welcome to Azure Central Colorado Roleplay! We are dedicated to providing a top-tier roleplaying experience. Stay tuned for more updates.</p>
-    <button id="sneakPeekBtn">Sneak Peek</button>
-  </section>
-
-  <section id="sneakPeekSection">
-    <h3>Sneak Peek</h3>
-    <p>Here is what we have made so far...</p>
-  </section>
-
-  <footer>
-    <span>Made by Lun4 ❤️</span>
-    <img src="https://cdn.discordapp.com/attachments/1430647842569064570/1432787476749221998/new.png?ex=6902fb92&is=6901aa12&hm=e590150e822c4eed1062e83ee7e697ad3a9f8c950e13c8e78366990905cac506&" alt="Lun4 Discord PFP">
-  </footer>
-</div>
-
-<!-- Discord Modal with Embed -->
-<div id="discordModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Discord Server Widget">
-  <div class="modal-content">
-    <span class="close-btn" id="closeModal" role="button" aria-label="Close Modal">&times;</span>
-    <!-- Discord Embed -->
-    <iframe src="https://canary.discord.com/widget?id=1383846821801230590&theme=dark"
-            width="100%" height="500" allowtransparency="true" frameborder="0"
-            sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+  <!-- Splash Screen -->
+  <div id="splash">
+    <div>
+      <img src="https://cdn.discordapp.com/attachments/1430654910734667817/1433073192489975819/Azure-Central_1.png?ex=69035cea&is=69020b6a&hm=6a0d23bec3abb86f27df70fa807285c73517617983206e7343987b2f0d8a5c0b&"
+           alt="Server Logo">
+      <h1>Azure Central Colorado</h1>
+    </div>
   </div>
-</div>
 
-<script>
-window.onload = () => {
-  const splash = document.getElementById('splash');
-  const main = document.getElementById('main-content');
+  <!-- Main Content -->
+  <div id="main-content">
+    <nav>
+      <h2>Azure Central Colorado</h2>
+      <button id="staffBtn">Staff Handbook</button>
+      <button id="chainBtn">Chain of Command</button>
+      <button id="boosterBtn">Booster Perks</button>
+    </nav>
 
-  setTimeout(() => {
-    splash.style.transition = "opacity 1s ease";
-    splash.style.opacity = 0;
-    setTimeout(() => {
-      splash.style.display = "none";
-      main.classList.add('active');
-      animateSections();
-    }, 1000);
-  }, 4000);
-};
+    <section id="aboutUs">
+      <h3>About Us</h3>
+      <p>Welcome to Azure Central Colorado Roleplay! We are dedicated to providing a top‑tier roleplaying experience. Stay tuned for more updates.</p>
+      <button id="sneakPeekBtn">Sneak Peek</button>
+    </section>
 
-// Animate sections on scroll
-function animateSections() {
-  const sections = document.querySelectorAll('section');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting){
-        entry.target.classList.add('visible');
+    <section id="chainSection">
+      <h3>Chain of Command</h3>
+      <p><img src="https://cdn.discordapp.com/attachments/1430647842569064570/1432787476749221998/new.png?ex=6902fb92&is=6901aa12&hm=e590150e822c4eed1062e83ee7e697ad3a9f8c950e13c8e78366990905cac506&" alt="Lun4 PFP" style="width:40px; height:40px; vertical-align:middle; border-radius:50%;"> Lun4.exe is making! Stay Tuned!!!</p>
+    </section>
+
+    <section id="boosterSection">
+      <h3>Booster Perks</h3>
+      <p><img src="https://cdn.discordapp.com/attachments/1430647842569064570/1432787476749221998/new.png?ex=6902fb92&is=6901aa12&hm=e590150e822c4eed1062e83ee7e697ad3a9f8c950e13c8e78366990905cac506&" alt="Lun4 PFP" style="width:40px; height:40px; vertical-align:middle; border-radius:50%;"> Lun4.exe is making! Stay Tuned!!!</p>
+    </section>
+
+    <footer>
+      <span>Made by Lun4 ❤️</span>
+      <img src="https://cdn.discordapp.com/attachments/1430647842569064570/1432787476749221998/new.png?ex=6902fb92&is=6901aa12&hm=e590150e822c4eed1062e83ee7e697ad3a9f8c950e13c8e78366990905cac506&" alt="Lun4 Discord PFP">
+    </footer>
+  </div>
+
+  <!-- Discord Modal with Embed -->
+  <div id="discordModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Discord Server Widget">
+    <div class="modal-content">
+      <span class="close-btn" id="closeModal" role="button" aria-label="Close Modal">&times;</span>
+      <iframe src="https://canary.discord.com/widget?id=1383846821801230590&theme=dark"
+              width="100%" height="500" allowtransparency="true" frameborder="0"
+              sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+    </div>
+  </div>
+
+  <script>
+    window.onload = () => {
+      const splash = document.getElementById('splash');
+      const main = document.getElementById('main-content');
+
+      setTimeout(() => {
+        splash.style.transition = "opacity 1s ease";
+        splash.style.opacity = 0;
+        setTimeout(() => {
+          splash.style.display = "none";
+          main.classList.add('active');
+          animateSections();
+        }, 1000);
+      }, 4000);
+    };
+
+    function animateSections() {
+      const sections = document.querySelectorAll('section');
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.3 });
+      sections.forEach(sec => observer.observe(sec));
+    }
+
+    // Buttons
+    document.getElementById('staffBtn').onclick = () => {
+      window.open('https://docs.google.com/document/d/1Y1GtNYDJhW-TmuSFCQwvP3xCOCR7uBQp-ky5fHMhDE8/edit?usp=sharing', '_blank');
+    };
+    document.getElementById('chainBtn').onclick = () => {
+      document.getElementById('chainSection').scrollIntoView({ behavior: 'smooth' });
+    };
+    document.getElementById('boosterBtn').onclick = () => {
+      document.getElementById('boosterSection').scrollIntoView({ behavior: 'smooth' });
+    };
+
+    const modal = document.getElementById('discordModal');
+    document.getElementById('closeModal').onclick = () => {
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden', 'true');
+    };
+    window.onclick = (e) => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+        modal.setAttribute('aria-hidden', 'true');
       }
-    });
-  }, {threshold:0.3});
-  sections.forEach(sec => observer.observe(sec));
-}
-
-// Navbar buttons
-document.getElementById('staffBtn').onclick = () => {
-  window.open('https://docs.google.com/document/d/1Y1GtNYDJhW-TmuSFCQwvP3xCOCR7uBQp-ky5fHMhDE8/edit?usp=sharing','_blank');
-};
-document.getElementById('chainBtn').onclick = () => { alert('Chain of Command link not yet provided.'); };
-document.getElementById('boosterBtn').onclick = () => { alert('Discord server Booster Perks link not yet provided.'); };
-
-// Discord modal
-const modal = document.getElementById('discordModal');
-document.getElementById('closeModal').onclick = () => {
-  modal.style.display='none';
-  modal.setAttribute('aria-hidden','true');
-};
-window.onclick = (e) => {
-  if(e.target === modal){
-    modal.style.display='none';
-    modal.setAttribute('aria-hidden','true');
-  }
-};
-
-// Sneak Peek button
-document.getElementById('sneakPeekBtn').onclick = () => {
-  const about = document.getElementById('aboutUs');
-  const sneak = document.getElementById('sneakPeekSection');
-  about.style.transition="opacity 0.5s ease";
-  about.style.opacity=0;
-  setTimeout(()=>{
-    about.style.display='none';
-    sneak.style.display='block';
-    setTimeout(()=>sneak.classList.add('visible'),50);
-  },500);
-};
-</script>
+    };
+  </script>
 </body>
 </html>
