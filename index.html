@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ACRP | Coming Soon</title>
+  <title>Aurze Central Roleplay | Coming Soon</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet">
   <style>
     * {
@@ -23,46 +23,10 @@
       color: #fff;
       text-align: center;
       overflow: hidden;
+      transition: background 1s ease;
     }
 
-    h1 {
-      font-size: 3rem;
-      font-weight: 500;
-      margin-bottom: 10px;
-      letter-spacing: 1px;
-    }
-
-    p {
-      font-size: 1.2rem;
-      color: #a5b4fc;
-      margin-bottom: 40px;
-    }
-
-    .discord-btn {
-      display: inline-block;
-      background: #5865F2;
-      color: white;
-      text-decoration: none;
-      padding: 12px 30px;
-      border-radius: 50px;
-      font-weight: 500;
-      transition: all 0.3s ease;
-    }
-
-    .discord-btn:hover {
-      background: #4752C4;
-      transform: scale(1.05);
-    }
-
-    footer {
-      position: absolute;
-      bottom: 15px;
-      font-size: 0.9rem;
-      color: #aaa;
-      letter-spacing: 0.5px;
-    }
-
-    /* Subtle animation background */
+    /* Floating circles */
     .bg-circle {
       position: absolute;
       width: 400px;
@@ -71,6 +35,7 @@
       opacity: 0.1;
       border-radius: 50%;
       animation: float 6s ease-in-out infinite alternate;
+      z-index: 0;
     }
 
     .bg-circle:nth-child(1) {
@@ -88,18 +53,150 @@
       from { transform: translateY(0px); }
       to { transform: translateY(30px); }
     }
+
+    /* Logo + Glow */
+    .logo {
+      width: 200px;
+      height: auto;
+      opacity: 0;
+      transform: translateY(-20px);
+      animation: fadeIn 1.5s ease-out forwards, glow 3s ease-in-out infinite alternate;
+      z-index: 1;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes glow {
+      from { filter: drop-shadow(0 0 0px #3b82f6); }
+      to { filter: drop-shadow(0 0 20px #60a5fa); }
+    }
+
+    /* Text */
+    h1 {
+      font-size: 3rem;
+      font-weight: 500;
+      margin-top: 20px;
+      letter-spacing: 1px;
+      z-index: 1;
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: #a5b4fc;
+      margin-bottom: 40px;
+      z-index: 1;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      background: #5865F2;
+      color: white;
+      text-decoration: none;
+      padding: 12px 30px;
+      border-radius: 50px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px rgba(88, 101, 242, 0.5);
+      z-index: 1;
+      cursor: pointer;
+      margin: 0 10px;
+    }
+
+    .btn:hover {
+      background: #4752C4;
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(88, 101, 242, 0.8);
+    }
+
+    footer {
+      position: absolute;
+      bottom: 15px;
+      font-size: 0.9rem;
+      color: #aaa;
+      letter-spacing: 0.5px;
+      z-index: 1;
+    }
+
+    /* Sneak Peek Section */
+    .sneak-peek {
+      display: none;
+      margin-top: 40px;
+      width: 80%;
+      max-width: 800px;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 25px;
+      border-radius: 10px;
+      text-align: left;
+      box-shadow: 0 0 20px rgba(59,130,246,0.1);
+      animation: fadeIn 0.8s ease-out;
+      z-index: 1;
+    }
+
+    .sneak-peek h2 {
+      color: #60a5fa;
+      margin-bottom: 10px;
+      font-size: 1.5rem;
+    }
+
+    .sneak-peek a {
+      color: #93c5fd;
+      text-decoration: underline;
+    }
+
+    .sneak-peek a:hover {
+      color: #bfdbfe;
+    }
+
+    .hidden { display: none; }
   </style>
 </head>
 <body>
   <div class="bg-circle"></div>
   <div class="bg-circle"></div>
 
-  <h1>ACRP</h1>
+  <img src="logo.png" alt="Aurze Central Roleplay Logo" class="logo" />
+
+  <h1>Aurze Central Roleplay</h1>
   <p>We’re building something awesome. Stay tuned!</p>
 
-  <!-- 🪩 Add your Discord link here -->
-  <a href="https://discord.gg/PDUDWrJcSn" target="_blank" class="discord-btn">Join our Discord</a>
+  <!-- Buttons -->
+  <div>
+    <a href="https://discord.gg/yourinvitecode" target="_blank" class="btn">Join our Discord</a>
+    <button class="btn" id="peekBtn">👀 Sneak Peek</button>
+  </div>
 
-  <footer>© 2025 ACRP. All Rights Reserved.</footer>
+  <!-- Hidden Sneak Peek Section -->
+  <div class="sneak-peek" id="sneakPeek">
+    <h2>Staff Handbook (Preview)</h2>
+    <p>Here’s a glimpse of what’s coming soon for our team. Check out the early version of our <a href="staff-handbook.html" target="_blank">Staff Handbook</a> and resources we're building for ACRP staff.</p>
+
+    <h2>Development Progress</h2>
+    <ul>
+      <li>✔️ Core Roleplay Systems Setup</li>
+      <li>🛠️ Vehicle and Economy Balancing</li>
+      <li>🚧 Custom Map Additions</li>
+      <li>📜 Staff and Rules Drafting</li>
+    </ul>
+  </div>
+
+  <footer>© 2025 Aurze Central Roleplay. All Rights Reserved.</footer>
+
+  <script>
+    const peekBtn = document.getElementById('peekBtn');
+    const sneakPeek = document.getElementById('sneakPeek');
+    let shown = false;
+
+    peekBtn.addEventListener('click', () => {
+      shown = !shown;
+      sneakPeek.style.display = shown ? 'block' : 'none';
+      peekBtn.textContent = shown ? '🔒 Hide Sneak Peek' : '👀 Sneak Peek';
+    });
+  </script>
 </body>
 </html>
