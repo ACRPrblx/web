@@ -6,7 +6,10 @@
 <title>Azure Central Colorado</title>
 <style>
 * { box-sizing: border-box; margin:0; padding:0; }
-body, html { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:#0c1e33; color:#b0c8e3; scroll-behavior:smooth; }
+body, html {
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background:#0c1e33; color:#b0c8e3; scroll-behavior:smooth;
+}
 
 /* Splash */
 #splash {
@@ -40,9 +43,13 @@ nav button:active { transform:scale(0.95); }
 
 /* Server logo top-right */
 #serverLogo {
-  position:fixed; top:10px; right:10px; width:50px; height:50px; z-index:60;
-  border-radius:8px; box-shadow:0 0 10px #4da3ff;
-  cursor:pointer;
+  position:fixed; top:10px; right:10px; width:55px; height:55px; z-index:60;
+  border-radius:10px; box-shadow:0 0 10px #4da3ff; cursor:pointer;
+  transition:0.4s ease;
+}
+#serverLogo:hover {
+  transform:scale(1.1);
+  box-shadow:0 0 20px #78aaff, 0 0 40px #4da3ff;
 }
 
 /* Sections */
@@ -66,8 +73,9 @@ section p { line-height:1.6; color:#d0e1ff; }
   max-width:420px; max-height:90vh; overflow-y:auto; box-shadow:0 0 20px #4da3ff;
   position:relative;
 }
-.close-btn { color:#a0c8ff; position:absolute; top:10px; right:15px; font-size:25px;
-  font-weight:bold; cursor:pointer; user-select:none; transition:0.3s;
+.close-btn {
+  color:#a0c8ff; position:absolute; top:10px; right:15px;
+  font-size:25px; font-weight:bold; cursor:pointer; user-select:none; transition:0.3s;
 }
 .close-btn:hover { color:#4da3ff; }
 
@@ -75,8 +83,8 @@ section p { line-height:1.6; color:#d0e1ff; }
 
 /* Smooth hover for sneak peek button */
 #sneakPeekBtn {
-  background:#4da3ff; color:#fff; border:none; padding:10px 18px; font-weight:bold;
-  border-radius:6px; cursor:pointer; transition:0.3s;
+  background:#4da3ff; color:#fff; border:none; padding:10px 18px;
+  font-weight:bold; border-radius:6px; cursor:pointer; transition:0.3s;
 }
 #sneakPeekBtn:hover { transform:scale(1.05); background:#78aaff;}
 #sneakPeekBtn:active { transform:scale(0.95);}
@@ -87,13 +95,23 @@ footer {
   display:flex; align-items:center; justify-content:center;
   gap:10px; font-weight:bold; font-size:1rem;
 }
-footer img { width:30px; height:30px; border-radius:50%; box-shadow:0 0 5px #4da3ff; }
+footer img {
+  width:30px; height:30px; border-radius:50%;
+  box-shadow:0 0 5px #4da3ff; transition:0.3s ease;
+}
+footer img:hover {
+  transform:scale(1.2);
+  box-shadow:0 0 15px #4da3ff;
+}
 </style>
 </head>
 <body>
 
-<!-- Server Logo -->
-<img src="https://cdn.discordapp.com/attachments/1430654910734667817/1433073192489975819/Azure-Central_1.png" alt="Server Logo" id="serverLogo" onclick="window.open('https://discord.gg/YOUR_INVITE_LINK','_blank')">
+<!-- Server Logo (clickable) -->
+<img src="https://cdn.discordapp.com/attachments/1430654910734667817/1433073192489975819/Azure-Central_1.png"
+     alt="Server Logo"
+     id="serverLogo"
+     onclick="window.open('https://discord.gg/PDUDWrJcSn','_blank')">
 
 <!-- Splash Screen -->
 <div id="splash">
@@ -169,18 +187,31 @@ function animateSections() {
   sections.forEach(sec => observer.observe(sec));
 }
 
-// Buttons & interactions
+// Navbar buttons
 document.getElementById('staffBtn').onclick = () => {
   window.open('https://docs.google.com/document/d/1Y1GtNYDJhW-TmuSFCQwvP3xCOCR7uBQp-ky5fHMhDE8/edit?usp=sharing','_blank');
 };
 document.getElementById('chainBtn').onclick = () => { alert('Chain of Command link not yet provided.'); };
 document.getElementById('boosterBtn').onclick = () => { alert('Discord server Booster Perks link not yet provided.'); };
 
+// Discord modal
 const modal = document.getElementById('discordModal');
-document.getElementById('discordBtn').onclick = () => { modal.style.display='block'; modal.setAttribute('aria-hidden','false'); };
-document.getElementById('closeModal').onclick = () => { modal.style.display='none'; modal.setAttribute('aria-hidden','true'); };
-window.onclick = (e) => { if(e.target === modal){ modal.style.display='none'; modal.setAttribute('aria-hidden','true'); } };
+document.getElementById('discordBtn').onclick = () => {
+  modal.style.display='block';
+  modal.setAttribute('aria-hidden','false');
+};
+document.getElementById('closeModal').onclick = () => {
+  modal.style.display='none';
+  modal.setAttribute('aria-hidden','true');
+};
+window.onclick = (e) => {
+  if(e.target === modal){
+    modal.style.display='none';
+    modal.setAttribute('aria-hidden','true');
+  }
+};
 
+// Sneak Peek button
 document.getElementById('sneakPeekBtn').onclick = () => {
   const about = document.getElementById('aboutUs');
   const sneak = document.getElementById('sneakPeekSection');
