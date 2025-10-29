@@ -3,90 +3,80 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Aurze Central Roleplay</title>
+<title>Azure Central Colorado</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet">
 <style>
-  /* --- General Reset --- */
-  * { margin: 0; padding: 0; box-sizing: border-box; font-family:'Poppins', sans-serif; }
+  * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
   body, html { height:100%; width:100%; overflow-x:hidden; background:#0f172a; color:white; }
 
-  /* --- Splash Animation --- */
+  /* --- Splash --- */
   #splash {
-    position: fixed;
-    top:0; left:0;
-    width:100%; height:100%;
+    position:fixed; top:0; left:0; width:100%; height:100%;
     display:flex; justify-content:center; align-items:center;
-    background:#111827; z-index:9999;
-    flex-direction:column;
+    background:#111827; z-index:9999; flex-direction:column;
   }
-  #splash h1 {
-    font-size:3rem;
-    opacity:0;
-    animation: fadeInOut 3s forwards;
-    color:#60a5fa;
-  }
-  @keyframes fadeInOut {
-    0% {opacity:0; transform:scale(0.8);}
-    50% {opacity:1; transform:scale(1.05);}
+  #splash img { width:150px; opacity:0; animation:logoFade 3s forwards; margin-bottom:20px; }
+  #splash h1 { font-size:3rem; opacity:0; color:#60a5fa; animation:textFade 3s forwards; }
+  @keyframes logoFade {
+    0% {opacity:0; transform:scale(0.5);}
+    50% {opacity:1; transform:scale(1.1);}
     100% {opacity:0; transform:scale(1);}
   }
+  @keyframes textFade {
+    0% {opacity:0; transform:translateY(20px);}
+    50% {opacity:1; transform:translateY(0);}
+    100% {opacity:0; transform:translateY(-20px);}
+  }
 
-  /* --- Main Page --- */
+  /* --- Main --- */
   #mainContent { display:none; flex-direction:column; min-height:100vh; }
 
-  /* --- Navbar --- */
   nav {
     display:flex; justify-content:flex-start; align-items:center;
     width:100%; background:#111827; padding:10px 20px; position:sticky; top:0; z-index:100;
     box-shadow:0 2px 10px rgba(0,0,0,0.5);
   }
-  nav .nav-btn {
+  .nav-btn {
     margin-right:20px; padding:10px 18px; border-radius:6px;
     background:#1f2937; color:#93c5fd; border:none; cursor:pointer; font-weight:500;
     transition: all 0.3s ease; position:relative; overflow:hidden;
   }
-  nav .nav-btn::after {
+  .nav-btn::after {
     content:""; position:absolute; left:50%; top:50%; width:0; height:0; background:rgba(88,101,242,0.3);
     border-radius:50%; transform:translate(-50%, -50%); transition: width 0.5s ease, height 0.5s ease;
   }
-  nav .nav-btn:hover { background:#3b82f6; color:white; }
-  nav .nav-btn:active::after { width:200%; height:500%; transition:0s; }
+  .nav-btn:hover { background:#3b82f6; color:white; }
+  .nav-btn:active::after { width:200%; height:500%; transition:0s; }
 
-  /* --- Page Content --- */
   .content { padding:40px 20px; max-width:1000px; margin:0 auto; }
   h2 { color:#60a5fa; margin-bottom:15px; }
   a { color:#93c5fd; text-decoration:underline; }
   a:hover { color:#bfdbfe; }
 
-  /* --- Discord Embed --- */
-  .discord-widget {
-    margin-top:30px;
-    display:flex; justify-content:center;
-  }
-  .discord-widget iframe {
-    width:100%;
-    max-width:350px;
-    height:500px;
-    border-radius:10px;
-    box-shadow:0 0 20px rgba(59,130,246,0.3);
-  }
-
+  /* --- Discord Modal --- */
+  .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.75); justify-content:center; align-items:center; z-index:2000; }
+  .modal-content { position:relative; background:#111827; padding:20px; border-radius:10px; width:90%; max-width:400px; height:520px; }
+  .modal-content iframe { width:100%; height:100%; border:none; border-radius:10px; }
+  .close-btn { position:absolute; top:10px; right:15px; font-size:1.5rem; cursor:pointer; color:#93c5fd; transition: color 0.3s; }
+  .close-btn:hover { color:#bfdbfe; }
 </style>
 </head>
 <body>
 
-<!-- Splash Screen -->
+<!-- Splash -->
 <div id="splash">
+  <img src="c2502a67-80d7-4e85-a925-4530e98b3c00.png" alt="ACRP Logo">
   <h1>Azure Central Colorado</h1>
 </div>
 
 <!-- Main Content -->
 <div id="mainContent">
+
   <!-- Navbar -->
   <nav>
-    <button class="nav-btn" onclick="location.href='staff-handbook.html'">Staff Handbook</button>
+    <button class="nav-btn" onclick="window.open('https://docs.google.com/document/d/1Y1GtNYDJhW-TmuSFCQwvP3xCOCR7uBQp-ky5fHMhDE8/edit?usp=sharing', '_blank')">Staff Handbook</button>
     <button class="nav-btn" onclick="location.href='chain-of-command.html'">Chain of Command</button>
-    <button class="nav-btn" onclick="window.open('https://discord.gg/yourinvitecode', '_blank')">Discord Server</button>
+    <button class="nav-btn" onclick="openModal()">Discord Server</button>
     <button class="nav-btn" onclick="location.href='booster-perks.html'">Booster Perks</button>
     <button class="nav-btn" onclick="window.open('https://discord.gg/yourinvitecode', '_blank')">Main Invite Link</button>
   </nav>
@@ -94,27 +84,34 @@
   <!-- Page Content -->
   <div class="content">
     <h2>About Us</h2>
-    <p>Welcome to Aurze Central Roleplay! We are building an immersive roleplay experience in Colorado. Stay tuned and explore our resources using the menu above.</p>
+    <p>Welcome to Azure Central Colorado! Explore our resources using the menu above.</p>
+  </div>
+</div>
 
-    <!-- Discord Embed Section -->
-    <div class="discord-widget">
-      <iframe src="https://canary.discord.com/widget?id=1383846821801230590&theme=dark" 
-              allowtransparency="true" frameborder="0" 
-              sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
-      </iframe>
-    </div>
+<!-- Discord Modal -->
+<div id="discordModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <iframe src="https://canary.discord.com/widget?id=1383846821801230590&theme=dark" allowtransparency="true"
+      sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
+    </iframe>
   </div>
 </div>
 
 <script>
-  // Splash animation handling
+  // Splash animation
   window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
-      const splash = document.getElementById('splash');
-      splash.style.display = 'none';
-      document.getElementById('mainContent').style.display = 'flex';
-    }, 3000); // Duration matches fadeInOut animation
+      document.getElementById('splash').style.display='none';
+      document.getElementById('mainContent').style.display='flex';
+    }, 3000);
   });
+
+  // Modal
+  const modal = document.getElementById('discordModal');
+  function openModal() { modal.style.display='flex'; }
+  function closeModal() { modal.style.display='none'; }
+  window.onclick = function(event) { if(event.target==modal) modal.style.display='none'; }
 </script>
 
 </body>
