@@ -3,9 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ACRP</title>
+<title>ACRP - Colorado Roleplay</title>
 <style>
-  /* --- Reset --- */
   * { margin:0; padding:0; box-sizing:border-box; }
   body, html { width:100%; height:100%; font-family:'Arial', sans-serif; scroll-behavior: smooth; }
 
@@ -14,7 +13,7 @@
     position:fixed;
     width:100%;
     height:100%;
-    background:#0d47a1; /* Blue theme */
+    background:#0d47a1;
     display:flex;
     flex-direction:column;
     justify-content:center;
@@ -68,17 +67,50 @@
 
   nav .logo { width:50px; height:50px; }
   nav ul { list-style:none; display:flex; gap:15px; }
-  nav ul li { cursor:pointer; padding:5px 10px; background:rgba(255,255,255,0.2); border-radius:5px; transition:0.3s; }
-  nav ul li:hover { background:rgba(255,255,255,0.4); }
+  nav ul li {
+    cursor:pointer;
+    padding:5px 10px;
+    background:rgba(255,255,255,0.2);
+    border-radius:5px;
+    transition:0.3s;
+    position:relative;
+    overflow:hidden;
+  }
+
+  nav ul li::after {
+    content:"";
+    position:absolute;
+    top:0; left:-100%;
+    width:100%; height:100%;
+    background:rgba(255,255,255,0.4);
+    transition:0.4s;
+    transform: skewX(-20deg);
+  }
+
+  nav ul li:hover::after { left:200%; }
 
   /* --- Sections --- */
   section { margin:40px 0; }
 
-  /* Chain of Command */
-  #chain-content { display:none; background:#e3f2fd; padding:15px; border-radius:8px; }
+  /* Toggleable sections with fade */
+  .toggle-section {
+    opacity:0;
+    max-height:0;
+    overflow:hidden;
+    transition: opacity 0.5s ease, max-height 0.5s ease;
+    padding:0 10px;
+    border-radius:8px;
+    margin-top:10px;
+  }
 
-  /* Booster Perks */
-  #booster-content { display:none; background:#722ed1; color:white; padding:15px; border-radius:8px; }
+  .toggle-section.active {
+    opacity:1;
+    max-height:2000px; /* enough to show content */
+    padding:15px;
+  }
+
+  #chain-content { background:#e3f2fd; }
+  #booster-content { background:#722ed1; color:white; }
 
   /* Discord Modal */
   #discordModal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:1000; }
@@ -88,6 +120,10 @@
   footer { background:#0d47a1; color:white; padding:10px; display:flex; align-items:center; gap:10px; justify-content:center; }
   footer img { width:30px; height:30px; border-radius:50%; }
 
+  /* About Section */
+  #about-section { background:#e3f2fd; padding:20px; border-radius:10px; }
+  #about-section h2 { color:#0d47a1; margin-bottom:10px; }
+  #about-section p, #about-section li { margin-bottom:10px; }
 </style>
 </head>
 <body>
@@ -102,6 +138,7 @@
 <nav>
   <img class="logo" src="https://cdn.discordapp.com/attachments/1430654910734667817/1433073192489975819/Azure-Central_1.png?ex=69035cea&is=69020b6a&hm=6a0d23bec3abb86f27df70fa807285c73517617983206e7343987b2f0d8a5c0b&" alt="Server Logo">
   <ul>
+    <li onclick="showAbout()">About</li>
     <li onclick="toggleChain()">Chain of Command</li>
     <li onclick="window.open('https://docs.google.com/document/d/1Y1GtNYDJhW-TmuSFCQwvP3xCOCR7uBQp-ky5fHMhDE8/edit?usp=sharing','_blank')">Staff Handbook</li>
     <li onclick="toggleBooster()">Booster Perks</li>
@@ -111,104 +148,63 @@
 
 <!-- Main Content -->
 <div id="main-content">
+  <!-- About Section -->
+  <section id="about-section">
+    <h2>Colorado Roleplay Server</h2>
+    <hr>
+    <p>👥 Serious RP. No Tourists.</p>
+    <p>Colorado Roleplay brings grounded, immersive roleplay set in the rugged terrain of Maple County. We’re a private, story-focused server made for players who want to live the life — not just wear the costume. Tight-knit team. Strong values. Real roleplay.</p>
+    <hr>
+    <h3>🔧 Now Recruiting:</h3>
+    <ul>
+      <li>🚓 Law Enforcement – CSPD, County Sheriff, S.W.A.T</li>
+      <li>🚒 Fire & EMS</li>
+      <li>🏗️ DOT, Tow & Civilians</li>
+      <li>⚙️ Staff – Admins, Mods, Department Leads</li>
+    </ul>
+    <hr>
+    <h3>💡 Why Colorado RP?</h3>
+    <ul>
+      <li>✅ Well-managed departments with real standards</li>
+      <li>✅ RP that’s actually coherent — not chaos in uniform</li>
+      <li>✅ Proper onboarding, training & support</li>
+      <li>✅ Deep storyline events with long-term impact</li>
+      <li>✅ No tolerance for clowns, griefers or OOC drama</li>
+      <li>✅ Active development & regular updates</li>
+    </ul>
+    <hr>
+    <h3>📌 Our Core Values:</h3>
+    <ul>
+      <li>ACCOUNTABILITY – Be present. Be consistent.</li>
+      <li>INTEGRITY – Quality over quantity, always.</li>
+      <li>DEDICATION – We're building something real. Contribute or move on.</li>
+    </ul>
+    <hr>
+    <p>🚀 We’re Not a Tourist Trap. Colorado RP isn’t for everyone — and we like it that way. If you're here to roleplay — not LARP — you’ll fit right in.</p>
+  </section>
+
+  <!-- Chain of Command -->
   <section id="chain-command">
     <h2>Chain of Command</h2>
-    <button onclick="toggleChain()">Toggle Chain of Command</button>
-    <div id="chain-content">
+    <div id="chain-content" class="toggle-section">
       <pre>
 -- 𝓐𝓒𝓡𝓟 | Owner
-
 -- 𝓐𝓒𝓡𝓟 | Co-Owner
 -- 𝓐𝓒𝓡𝓟 | Acting Owner
-
 -- 𝓐𝓒𝓡𝓟 | Head of Leadership Team
 -- 𝓐𝓒𝓡𝓟 | Senior Leadership
 -- 𝓐𝓒𝓡𝓟 | Junior Leadership
 -- 𝓐𝓒𝓡𝓟 | Leadership Team Member
-
 -- 𝓐𝓒𝓡𝓟 | Community Director
 -- 𝓐𝓒𝓡𝓟 | Deputy Community Director
 -- 𝓐𝓒𝓡𝓟 | Assistant Community Director
 -- 𝓐𝓒𝓡𝓟 | Community Team Member
-
 -- 𝓐𝓒𝓡𝓟 | Director of Internal Affairs
 -- 𝓐𝓒𝓡𝓟 | Deputy Internal Affairs Director
 -- 𝓐𝓒𝓡𝓟 | Internal Affairs Agent
 -- 𝓐𝓒𝓡𝓟 | Trial Internal Affairs
 -- 𝓐𝓒𝓡𝓟 | Internal Affairs Team Member
-
 -- 𝓐𝓒𝓡𝓟 | Head of Management
 -- 𝓐𝓒𝓡𝓟 | Senior Management
 -- 𝓐𝓒𝓡𝓟 | Junior Management
--- 𝓐𝓒𝓡𝓟 | Trial Management
--- 𝓐𝓒𝓡𝓟 | Management Team Member
-
--- 𝓐𝓒𝓡𝓟 | Administration Team
--- 𝓐𝓒𝓡𝓟 | Senior Administrator
--- 𝓐𝓒𝓻𝓟 | Junior Administrator
--- 𝓐𝓒𝓡𝓟 | Administration Member
-
--- 𝓐𝓒𝓡𝓟 | Head of Moderation
--- 𝓐𝓒𝓡𝓟 | Senior Moderator
--- 𝓐𝓒𝓡𝓟 | Junior Moderator
--- 𝓐𝓒𝓡𝓟 | Trial Moderator
--- 𝓐𝓒𝓡𝓟 | Moderation Team Member
-      </pre>
-    </div>
-  </section>
-
-  <section id="booster-section">
-    <h2>Booster Perks</h2>
-    <button onclick="toggleBooster()">Show/Hide Perks</button>
-    <div id="booster-content">
-      <p>Exclusive booster perks! (Discord Nitro Purple theme)</p>
-      <ul>
-        <li>Special Roles</li>
-        <li>Access to secret channels</li>
-        <li>Custom badges</li>
-      </ul>
-    </div>
-  </section>
-</div>
-
-<!-- Discord Modal -->
-<div id="discordModal">
-  <iframe src="https://canary.discord.com/widget?id=1383846821801230590&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
-</div>
-
-<!-- Footer -->
-<footer>
-  <img src="https://cdn.discordapp.com/attachments/1430647842569064570/1432787476749221998/new.png?ex=6902fb92&is=6901aa12&hm=e590150e822c4eed1062e83ee7e697ad3a9f8c950e13c8e78366990905cac506&" alt="Lun4 PFP">
-  <span>Made by Lun4 with &lt;3</span>
-</footer>
-
-<script>
-  // Splash
-  setTimeout(() => {
-    document.getElementById('splash').style.display = 'none';
-    document.getElementById('main-content').style.display = 'block';
-  }, 4000);
-
-  // Chain Toggle
-  function toggleChain(){
-    const el = document.getElementById('chain-content');
-    el.style.display = el.style.display === 'block' ? 'none' : 'block';
-  }
-
-  // Booster Toggle
-  function toggleBooster(){
-    const el = document.getElementById('booster-content');
-    el.style.display = el.style.display === 'block' ? 'none' : 'block';
-  }
-
-  // Discord Modal
-  function openDiscord(){
-    document.getElementById('discordModal').style.display = 'flex';
-    document.getElementById('discordModal').addEventListener('click', () => {
-      document.getElementById('discordModal').style.display = 'none';
-    });
-  }
-</script>
-
-</body>
-</html>
+-- 𝓐𝓒𝓡𝓟 |
