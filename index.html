@@ -99,32 +99,37 @@
     max-width: 900px;
     margin: 0 auto;
   }
+  section {
+    display: none; /* All sections hidden initially except About */
+    opacity: 0;
+    transition: opacity 0.6s;
+  }
+  section.active {
+    display: block;
+    opacity: 1;
+  }
   h2 {
     font-family: 'Montserrat', sans-serif;
     color: var(--primary-color);
   }
-  p {
+  p, ul {
     line-height: 1.6;
     margin: 10px 0;
   }
 
   /* Booster Perks */
   #boosterPerks {
-    display: none;
     background: var(--secondary-color);
     padding: 15px;
     border-radius: 8px;
-    margin-top: 20px;
     color: white;
   }
 
-  /* Chain of Command Toggle */
+  /* Chain of Command */
   #cocContent {
-    display: none;
     background-color: var(--hover-color);
     padding: 15px;
     border-radius: 8px;
-    margin-top: 20px;
   }
 
   /* Staff Handbook Modal */
@@ -207,66 +212,68 @@
 <nav>
   <img class="logo" src="https://cdn.discordapp.com/attachments/1430654910734667817/1433073192489975819/Azure-Central_1.png" alt="Server Logo" onclick="openDiscord()">
   <div class="menu">
-    <button onclick="openHandbook()">Staff Handbook</button>
-    <button onclick="toggleCoC()">Chain of Command</button>
-    <button onclick="toggleBooster()">Booster Perks</button>
+    <button onclick="openSection('handbook')">Staff Handbook</button>
+    <button onclick="openSection('coc')">Chain of Command</button>
+    <button onclick="openSection('booster')">Booster Perks</button>
   </div>
 </nav>
 
 <!-- Main Content -->
 <div id="main">
-  <h2>Colorado Roleplay Server</h2>
-  <p>👥 Serious RP. No Tourists.</p>
-  <p>Colorado Roleplay brings grounded, immersive roleplay set in the rugged terrain of Maple County. We’re a private, story-focused server made for players who want to live the life — not just wear the costume. Tight-knit team. Strong values. Real roleplay.</p>
-  <hr>
-  <p>🔧 Now Recruiting:</p>
-  <ul>
-    <li>🚓 Law Enforcement – CSPD, County Sheriff, S.W.A.T</li>
-    <li>🚒 Fire & EMS</li>
-    <li>🏗️ DOT, Tow & Civilians</li>
-    <li>⚙️ Staff – Admins, Mods, Department Leads</li>
-  </ul>
-  <hr>
-  <p>💡 Why Colorado RP?</p>
-  <ul>
-    <li>✅ Well-managed departments with real standards</li>
-    <li>✅ RP that’s actually coherent — not chaos in uniform</li>
-    <li>✅ Proper onboarding, training & support</li>
-    <li>✅ Deep storyline events with long-term impact</li>
-    <li>✅ No tolerance for clowns, griefers or OOC drama</li>
-    <li>✅ Active development & regular updates</li>
-  </ul>
-  <hr>
-  <p>📌 Our Core Values:</p>
-  <ul>
-    <li>ACCOUNTABILITY – Be present. Be consistent.</li>
-    <li>INTEGRITY – Quality over quantity, always.</li>
-    <li>DEDICATION – We're building something real. Contribute or move on.</li>
-  </ul>
-  <hr>
-  <p>🚀 We’re Not a Tourist Trap. Colorado RP isn’t for everyone — and we like it that way. If you're here to roleplay — not LARP — you’ll fit right in.</p>
+  <!-- About Section (Default visible) -->
+  <section id="about" class="active">
+    <h2>Colorado Roleplay Server</h2>
+    <p>👥 Serious RP. No Tourists.</p>
+    <p>Colorado Roleplay brings grounded, immersive roleplay set in the rugged terrain of Maple County. We’re a private, story-focused server made for players who want to live the life — not just wear the costume. Tight-knit team. Strong values. Real roleplay.</p>
+    <hr>
+    <p>🔧 Now Recruiting:</p>
+    <ul>
+      <li>🚓 Law Enforcement – CSPD, County Sheriff, S.W.A.T</li>
+      <li>🚒 Fire & EMS</li>
+      <li>🏗️ DOT, Tow & Civilians</li>
+      <li>⚙️ Staff – Admins, Mods, Department Leads</li>
+    </ul>
+    <hr>
+    <p>💡 Why Colorado RP?</p>
+    <ul>
+      <li>✅ Well-managed departments with real standards</li>
+      <li>✅ RP that’s actually coherent — not chaos in uniform</li>
+      <li>✅ Proper onboarding, training & support</li>
+      <li>✅ Deep storyline events with long-term impact</li>
+      <li>✅ No tolerance for clowns, griefers or OOC drama</li>
+      <li>✅ Active development & regular updates</li>
+    </ul>
+    <hr>
+    <p>📌 Our Core Values:</p>
+    <ul>
+      <li>ACCOUNTABILITY – Be present. Be consistent.</li>
+      <li>INTEGRITY – Quality over quantity, always.</li>
+      <li>DEDICATION – We're building something real. Contribute or move on.</li>
+    </ul>
+    <hr>
+    <p>🚀 We’re Not a Tourist Trap. Colorado RP isn’t for everyone — and we like it that way. If you're here to roleplay — not LARP — you’ll fit right in.</p>
+  </section>
 
-  <!-- Chain of Command -->
-  <div id="cocContent">
+  <!-- Chain of Command Section -->
+  <section id="coc">
     <h3>Chain of Command</h3>
-    <pre>
+    <pre id="cocContent">
 -- 𝓐𝓒𝓡𝓟 | Owner
 -- 𝓐𝓒𝓡𝓟 | Co-Owner
 -- 𝓐𝓒𝓡𝓟 | Acting Owner
-----------------------------------------------
 -- 𝓐𝓒𝓡𝓟 | Head of Leadership Team
 -- 𝓐𝓒𝓡𝓟 | Senior Leadership
 -- 𝓐𝓒𝓡𝓟 | Junior Leadership
 -- 𝓐𝓒𝓡𝓟 | Leadership Team Member
 ...
-    </pre>
-  </div>
+</pre>
+  </section>
 
-  <!-- Booster Perks -->
-  <div id="boosterPerks">
+  <!-- Booster Perks Section -->
+  <section id="booster">
     <h3>Booster Perks</h3>
     <p>💎 Exclusive perks for our server boosters. Access special channels, custom roles, and more.</p>
-  </div>
+  </section>
 </div>
 
 <!-- Staff Handbook Modal -->
@@ -298,20 +305,20 @@
     }, 2000); // 2s splash display
   });
 
+  function openSection(sectionId) {
+    // Hide all sections
+    document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
+    // Show selected section
+    document.getElementById(sectionId).classList.add('active');
+  }
+
   function openHandbook() {
     document.getElementById('handbookModal').style.display = 'flex';
   }
   function closeHandbook() {
     document.getElementById('handbookModal').style.display = 'none';
   }
-  function toggleCoC() {
-    const coc = document.getElementById('cocContent');
-    coc.style.display = coc.style.display === 'block' ? 'none' : 'block';
-  }
-  function toggleBooster() {
-    const booster = document.getElementById('boosterPerks');
-    booster.style.display = booster.style.display === 'block' ? 'none' : 'block';
-  }
+
   function openDiscord() {
     document.getElementById('discordModal').style.display = 'flex';
   }
