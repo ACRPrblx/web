@@ -5,75 +5,45 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Azure Central Colorado</title>
 <style>
-  * { margin:0; padding:0; box-sizing:border-box; font-family: Arial, sans-serif; scroll-behavior: smooth; }
-  body { overflow-x:hidden; background:#111; color:#fff; }
+  /* Reset & basic styles */
+  * {margin:0; padding:0; box-sizing:border-box; font-family: Arial, sans-serif;}
+  body {overflow-x:hidden; scroll-behavior: smooth; background:#f0f4f8; color:#111;}
+  a {text-decoration:none; color:inherit;}
+  h1,h2,h3 {margin-bottom:10px;}
+  ul {list-style:none; margin-left:20px;}
 
   /* Splash */
-  #splash {
-    position:fixed; top:0; left:0; width:100%; height:100%;
-    display:flex; flex-direction:column; justify-content:center; align-items:center;
-    background:#000; z-index:9999; transition: opacity 1s ease;
-  }
-  #splashLogo {
-    width:150px;
-    animation: bounce 1.5s infinite, shineLogo 3s linear infinite;
-    cursor:pointer;
-  }
-  #splashText {
-    font-size:2rem;
-    margin-top:20px;
-    background: linear-gradient(90deg, #00bfff, #fff, #00bfff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: shineText 3s linear infinite;
-  }
-  @keyframes shineLogo { 0% { filter: brightness(0.8); } 50% { filter: brightness(1.3); } 100% { filter: brightness(0.8); } }
-  @keyframes shineText { 0% { background-position: -300px; } 100% { background-position: 300px; } }
-  @keyframes bounce { 0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);} }
+  #splash {position:fixed; top:0; left:0; width:100%; height:100%; background:#0d47a1; display:flex; align-items:center; justify-content:center; flex-direction:column; z-index:9999; transition: opacity 1s;}
+  #splash img {width:200px; animation:bounce 1s infinite;}
+  #splash h1 {color:#fff; margin-top:20px; font-size:2rem; text-align:center; background: linear-gradient(90deg,#00bfff,#8e44ad); -webkit-background-clip:text; color:transparent; animation:shine 2s linear infinite;}
 
-  /* Navbar Chrome-like sticky */
-  nav {
-    position:sticky; top:0; left:0; width:100%; display:flex; justify-content:flex-start;
-    background:#111; padding:10px; z-index:1000;
-    border-bottom:1px solid #222; box-shadow: 0 0 0 transparent; transition: box-shadow 0.3s ease;
-  }
-  nav.scrolled { box-shadow: 0 4px 8px rgba(0,0,0,0.5); }
-  nav button {
-    margin-right:10px; padding:10px 15px; border:none; cursor:pointer; color:#fff; background:#222;
-    border-radius:5px; position:relative; transition:0.2s;
-  }
-  nav button::after {
-    content:''; position:absolute; left:0; bottom:0; height:2px; width:0; background:#00bfff;
-    transition: width 0.3s;
-  }
-  nav button:hover::after { width:100%; }
-  nav button:active { transform: translateY(2px); }
+  @keyframes bounce {0%,100%{transform:translateY(0);}50%{transform:translateY(-20px);}}
+  @keyframes shine {0%{background-position:-200%}100%{background-position:200%}}
+
+  /* Navbar */
+  #navbar {position:fixed; top:0; left:0; width:100%; background:#fff; display:flex; align-items:center; justify-content:space-around; padding:10px 0; box-shadow:none; z-index:1000; transition:0.3s;}
+  #navbar.scrolled {box-shadow:0 2px 10px rgba(0,0,0,0.2);}
+  #navbar button {background:#00bfff; color:#fff; border:none; padding:10px 15px; border-radius:5px; cursor:pointer; transition:0.2s;}
+  #navbar button:hover {transform:scale(1.1); background:#8e44ad;}
 
   /* Pages */
-  .page { display:none; padding:80px 20px 20px; transition: all 0.5s ease; }
-  .page.active { display:block; }
-
-  /* Footer */
-  footer {
-    background:#111; color:#fff; text-align:center; padding:10px;
-    display:flex; align-items:center; justify-content:center;
-  }
-  footer img { width:30px; border-radius:50%; margin-left:5px; }
-  #footerArrow { cursor:pointer; margin-left:5px; font-size:0.8rem; }
+  .page {display:none; padding:80px 20px 20px;}
+  .page.active {display:block;}
 
   /* Modals */
-  .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:2000; opacity:0; transition: opacity 0.4s ease; }
-  .modal.show { display:flex; opacity:1; }
-  .modalContent { background:#222; padding:20px; border-radius:8px; width:90%; max-width:600px; color:#fff; position:relative; transform:translateY(-50px); transition: transform 0.4s ease; }
-  .modal.show .modalContent { transform:translateY(0); }
-  .closeBtn { position:absolute; top:10px; right:15px; cursor:pointer; font-size:1.2rem; }
+  .modal {position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); display:none; justify-content:center; align-items:center; z-index:1001;}
+  .modal.show {display:flex;}
+  .modalContent {background:#fff; padding:20px; border-radius:10px; max-width:500px; width:90%; max-height:80%; overflow-y:auto; position:relative;}
+  .closeBtn {position:absolute; top:10px; right:15px; cursor:pointer; font-size:1.2rem;}
 
-  /* Booster Perks */
-  #boosterModal .modalContent { background: linear-gradient(135deg,#9b59b6,#8e44ad); }
-
-  /* Server logo */
-  #serverLogo { position:fixed; top:10px; right:10px; width:60px; border-radius:8px; z-index:1100; cursor:pointer; }
-
+  /* Footer */
+  footer {background:#111; color:#fff; text-align:center; padding:10px; position:relative;}
+  #footerArrow {position:relative; display:inline-block; margin-left:5px;}
+  #footerArrow span {position:absolute; top:-10px; left:50%; transform:translateX(-50%); font-size:0.7rem; color:#00bfff;}
+  #footerArrow img {width:30px; border-radius:50%; cursor:pointer;}
+  
+  /* Smooth scrolling anchor */
+  html {scroll-behavior:smooth;}
 </style>
 </head>
 <body>
@@ -81,42 +51,45 @@
 <!-- Splash -->
 <div id="splash">
   <img id="splashLogo" src="https://cdn.discordapp.com/attachments/1430654910734667817/1433073192489975819/Azure-Central_1.png" alt="Logo" onclick="openModal('discordModal')">
-  <div id="splashText">Azure Central Colorado</div>
+  <h1>Azure Central Colorado</h1>
 </div>
 
-<!-- Server Logo Top-Right -->
-<img id="serverLogo" src="https://cdn.discordapp.com/attachments/1430654910734667817/1433073192489975819/Azure-Central_1.png" alt="Server Logo" onclick="openModal('discordModal')">
-
 <!-- Navbar -->
-<nav id="navbar">
+<div id="navbar">
   <button onclick="openPage('about')">About</button>
   <button onclick="openModal('staffModal')">Staff Handbook</button>
-  <button onclick="openModal('cocModal')">Chain of Command</button>
+  <button onclick="openModal('chainModal')">Chain of Command</button>
   <button onclick="openModal('boosterModal')">Booster Perks</button>
-</nav>
+  <button onclick="window.open('https://discord.gg/PDUDWrJcSn','_blank')">Discord Invite</button>
+  <img src="https://cdn.discordapp.com/attachments/1430654910734667817/1433073192489975819/Azure-Central_1.png" style="height:40px; position:fixed; top:10px; right:10px;">
+</div>
 
 <!-- Pages -->
 <div id="about" class="page active">
-  <h2>Colorado Roleplay Server</h2>
+  <h1>Colorado Roleplay Server</h1>
   <p>👥 Serious RP. No Tourists.</p>
   <p>Colorado Roleplay brings grounded, immersive roleplay set in the rugged terrain of Maple County. We’re a private, story-focused server made for players who want to live the life — not just wear the costume. Tight-knit team. Strong values. Real roleplay.</p>
-  <p>🔧 Now Recruiting:<br>
-  • 🚓 Law Enforcement – CSPD, County Sheriff, S.W.A.T<br>
-  • 🚒 Fire & EMS<br>
-  • 🏗️ DOT, Tow & Civilians<br>
-  • ⚙️ Staff – Admins, Mods, Department Leads</p>
-  <p>💡 Why Colorado RP?<br>
-  ✅ Well-managed departments<br>
-  ✅ Coherent RP, not chaos<br>
-  ✅ Proper onboarding & training<br>
-  ✅ Deep storyline events<br>
-  ✅ No tolerance for clowns or griefers<br>
-  ✅ Active development & updates</p>
-  <p>📌 Core Values:<br>
-  ACCOUNTABILITY – Be present.<br>
-  INTEGRITY – Quality over quantity.<br>
-  DEDICATION – Contribute or move on.</p>
-  <p>🚀 We’re Not a Tourist Trap. If you're here to roleplay — not LARP — you’ll fit right in.</p>
+  <h3>Now Recruiting:</h3>
+  <ul>
+    <li>🚓 Law Enforcement – CSPD, County Sheriff, S.W.A.T</li>
+    <li>🚒 Fire & EMS</li>
+    <li>🏗️ DOT, Tow & Civilians</li>
+    <li>⚙️ Staff – Admins, Mods, Department Leads</li>
+  </ul>
+  <h3>Why Colorado RP?</h3>
+  <ul>
+    <li>✅ Well-managed departments</li>
+    <li>✅ Coherent RP, not chaos</li>
+    <li>✅ Proper onboarding & training</li>
+    <li>✅ Deep storyline events</li>
+    <li>✅ No tolerance for clowns or griefers</li>
+    <li>✅ Active development & updates</li>
+  </ul>
+  <h3>Our Core Values:</h3>
+  <p>ACCOUNTABILITY – Be present. Be consistent.<br>
+     INTEGRITY – Quality over quantity, always.<br>
+     DEDICATION – We're building something real. Contribute or move on.</p>
+  <p>🚀 We’re Not a Tourist Trap. Colorado RP isn’t for everyone — and we like it that way. If you're here to roleplay — not LARP — you’ll fit right in.</p>
 </div>
 
 <!-- Modals -->
@@ -128,11 +101,11 @@
   </div>
 </div>
 
-<div id="cocModal" class="modal">
+<div id="chainModal" class="modal">
   <div class="modalContent">
-    <span class="closeBtn" onclick="closeModal('cocModal')">&times;</span>
+    <span class="closeBtn" onclick="closeModal('chainModal')">&times;</span>
     <h3>Chain of Command</h3>
-    <pre style="color:#fff;">
+    <pre style="color:#000;">
 -- 𝓐𝓒𝓡𝓟 | Owner
 -- 𝓐𝓒𝓡𝓟 | Co-Owner
 -- 𝓐𝓒𝓡𝓟 | Acting Owner
@@ -168,7 +141,7 @@
 </div>
 
 <div id="boosterModal" class="modal">
-  <div class="modalContent">
+  <div class="modalContent" style="background:linear-gradient(90deg,#8e44ad,#00bfff); color:#fff;">
     <span class="closeBtn" onclick="closeModal('boosterModal')">&times;</span>
     <h3>Booster Perks</h3>
     <ul>
@@ -183,15 +156,19 @@
   <div class="modalContent">
     <span class="closeBtn" onclick="closeModal('discordModal')">&times;</span>
     <h3>Join our Discord!</h3>
-    <a href="https://discord.gg/YOURSERVER" target="_blank" style="color:#00bfff;">Click here to join</a>
+    <a href="https://discord.gg/PDUDWrJcSn" target="_blank" style="color:#00bfff;">Click here to join</a>
   </div>
 </div>
 
 <!-- Footer -->
 <footer>
   Made with 💖 by Luna
-  <span id="footerArrow" onclick="window.location='http://they-luv-lunaaa.github.io/'">click me &lt;3</span>
-  <img src="https://cdn.discordapp.com/attachments/1430647842569064570/1432787476749221998/new.png" alt="Luna PFP">
+  <span id="footerArrow">
+    <span>&#8593;</span>
+    <img src="https://cdn.discordapp.com/attachments/1430647842569064570/1432787476749221998/new.png" 
+         alt="Luna PFP" 
+         onclick="window.location='http://they-luv-lunaaa.github.io/'">
+  </span>
 </footer>
 
 <script>
