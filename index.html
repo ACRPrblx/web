@@ -15,8 +15,12 @@
     display:flex; justify-content:center; align-items:center;
     background:#111827; z-index:9999; flex-direction:column;
   }
-  #splash img { width:150px; opacity:0; animation:logoFade 3s forwards; margin-bottom:20px; }
-  #splash h1 { font-size:3rem; opacity:0; color:#60a5fa; animation:textFade 3s forwards; }
+  #splash img {
+    width:150px; opacity:0; animation:logoFade 3s forwards; margin-bottom:20px;
+  }
+  #splash h1 {
+    font-size:3rem; opacity:0; color:#60a5fa; animation:textFade 3s forwards;
+  }
   @keyframes logoFade {
     0% {opacity:0; transform:scale(0.5);}
     50% {opacity:1; transform:scale(1.1);}
@@ -28,7 +32,7 @@
     100% {opacity:0; transform:translateY(-20px);}
   }
 
-  /* --- Main --- */
+  /* --- Main Content --- */
   #mainContent { display:none; flex-direction:column; min-height:100vh; }
 
   nav {
@@ -54,11 +58,21 @@
   a:hover { color:#bfdbfe; }
 
   /* --- Discord Modal --- */
-  .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.75); justify-content:center; align-items:center; z-index:2000; }
-  .modal-content { position:relative; background:#111827; padding:20px; border-radius:10px; width:90%; max-width:400px; height:520px; }
+  .modal {
+    display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+    background:rgba(0,0,0,0.75); justify-content:center; align-items:center; z-index:2000;
+    opacity:0; transition: opacity 0.4s ease;
+  }
+  .modal.show { display:flex; opacity:1; }
+  .modal-content {
+    position:relative; background:#111827; padding:20px; border-radius:10px;
+    width:90%; max-width:400px; height:520px; transform:scale(0.8); transition: transform 0.4s ease;
+  }
+  .modal.show .modal-content { transform:scale(1); }
   .modal-content iframe { width:100%; height:100%; border:none; border-radius:10px; }
   .close-btn { position:absolute; top:10px; right:15px; font-size:1.5rem; cursor:pointer; color:#93c5fd; transition: color 0.3s; }
   .close-btn:hover { color:#bfdbfe; }
+
 </style>
 </head>
 <body>
@@ -107,11 +121,11 @@
     }, 3000);
   });
 
-  // Modal
+  // Discord Modal
   const modal = document.getElementById('discordModal');
-  function openModal() { modal.style.display='flex'; }
-  function closeModal() { modal.style.display='none'; }
-  window.onclick = function(event) { if(event.target==modal) modal.style.display='none'; }
+  function openModal() { modal.classList.add('show'); }
+  function closeModal() { modal.classList.remove('show'); }
+  window.onclick = function(event) { if(event.target==modal) closeModal(); }
 </script>
 
 </body>
