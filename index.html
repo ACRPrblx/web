@@ -1,240 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Aurze Central Roleplay | Coming Soon</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet" />
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aurze Central Roleplay</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+<style>
+  /* --- General Reset --- */
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family:'Poppins', sans-serif; }
+  body, html { height:100%; width:100%; overflow-x:hidden; background:#0f172a; color:white; }
 
-    body {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: center;
-      background: radial-gradient(circle at top, #0f172a, #111827);
-      color: #fff;
-      text-align: center;
-      padding: 40px 20px 80px; /* padding bottom to avoid footer overlap */
-      overflow-x: hidden;
-      transition: background 1s ease;
-    }
+  /* --- Splash Animation --- */
+  #splash {
+    position: fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    display:flex; justify-content:center; align-items:center;
+    background:#111827; z-index:9999;
+    flex-direction:column;
+  }
+  #splash h1 {
+    font-size:3rem;
+    opacity:0;
+    animation: fadeInOut 3s forwards;
+    color:#60a5fa;
+  }
+  @keyframes fadeInOut {
+    0% {opacity:0; transform:scale(0.8);}
+    50% {opacity:1; transform:scale(1.05);}
+    100% {opacity:0; transform:scale(1);}
+  }
 
-    /* Floating circles */
-    .bg-circle {
-      position: fixed;
-      width: 400px;
-      height: 400px;
-      background: #3b82f6;
-      opacity: 0.1;
-      border-radius: 50%;
-      animation: float 6s ease-in-out infinite alternate;
-      z-index: 0;
-      pointer-events: none;
-      user-select: none;
-    }
+  /* --- Main Page --- */
+  #mainContent { display:none; flex-direction:column; min-height:100vh; }
 
-    .bg-circle:nth-child(1) {
-      top: -100px;
-      left: -100px;
-    }
+  /* --- Navbar --- */
+  nav {
+    display:flex; justify-content:flex-start; align-items:center;
+    width:100%; background:#111827; padding:10px 20px; position:sticky; top:0; z-index:100;
+    box-shadow:0 2px 10px rgba(0,0,0,0.5);
+  }
+  nav .nav-btn {
+    margin-right:20px; padding:10px 18px; border-radius:6px;
+    background:#1f2937; color:#93c5fd; border:none; cursor:pointer; font-weight:500;
+    transition: all 0.3s ease; position:relative; overflow:hidden;
+  }
+  nav .nav-btn::after {
+    content:""; position:absolute; left:50%; top:50%; width:0; height:0; background:rgba(88,101,242,0.3);
+    border-radius:50%; transform:translate(-50%, -50%); transition: width 0.5s ease, height 0.5s ease;
+  }
+  nav .nav-btn:hover { background:#3b82f6; color:white; }
+  nav .nav-btn:active::after { width:200%; height:500%; transition:0s; }
 
-    .bg-circle:nth-child(2) {
-      bottom: -100px;
-      right: -100px;
-      animation-delay: 3s;
-    }
+  /* --- Page Content --- */
+  .content { padding:40px 20px; max-width:1000px; margin:0 auto; }
+  h2 { color:#60a5fa; margin-bottom:15px; }
+  a { color:#93c5fd; text-decoration:underline; }
+  a:hover { color:#bfdbfe; }
 
-    @keyframes float {
-      from {
-        transform: translateY(0px);
-      }
-      to {
-        transform: translateY(30px);
-      }
-    }
+  /* --- Discord Embed --- */
+  .discord-widget {
+    margin-top:30px;
+    display:flex; justify-content:center;
+  }
+  .discord-widget iframe {
+    width:100%;
+    max-width:350px;
+    height:500px;
+    border-radius:10px;
+    box-shadow:0 0 20px rgba(59,130,246,0.3);
+  }
 
-    /* Logo + Glow */
-    .logo {
-      width: 200px;
-      height: auto;
-      opacity: 0;
-      transform: translateY(-20px);
-      animation: fadeIn 1.5s ease-out forwards, glow 3s ease-in-out infinite alternate;
-      z-index: 1;
-      user-select: none;
-    }
-
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes glow {
-      from {
-        filter: drop-shadow(0 0 0px #3b82f6);
-      }
-      to {
-        filter: drop-shadow(0 0 20px #60a5fa);
-      }
-    }
-
-    /* Text */
-    h1 {
-      font-size: 3rem;
-      font-weight: 500;
-      margin-top: 20px;
-      letter-spacing: 1px;
-      z-index: 1;
-      user-select: none;
-    }
-
-    p {
-      font-size: 1.2rem;
-      color: #a5b4fc;
-      margin-bottom: 40px;
-      z-index: 1;
-      user-select: none;
-    }
-
-    /* Buttons container */
-    .btn-container {
-      z-index: 1;
-      margin-bottom: 30px;
-    }
-
-    /* Buttons */
-    .btn {
-      display: inline-block;
-      background: #5865F2;
-      color: white;
-      text-decoration: none;
-      padding: 12px 30px;
-      border-radius: 50px;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 10px rgba(88, 101, 242, 0.5);
-      cursor: pointer;
-      margin: 0 10px;
-      user-select: none;
-    }
-
-    .btn:hover {
-      background: #4752C4;
-      transform: scale(1.05);
-      box-shadow: 0 0 20px rgba(88, 101, 242, 0.8);
-    }
-
-    footer {
-      font-size: 0.9rem;
-      color: #aaa;
-      letter-spacing: 0.5px;
-      margin-top: 60px;
-      user-select: none;
-      z-index: 1;
-    }
-
-    /* Sneak Peek Section with slide down + fade in */
-    .sneak-peek {
-      max-width: 800px;
-      background: rgba(255, 255, 255, 0.05);
-      padding: 25px;
-      border-radius: 10px;
-      text-align: left;
-      box-shadow: 0 0 20px rgba(59, 130, 246, 0.1);
-      overflow: hidden;
-      margin-top: 20px;
-      user-select: text;
-
-      /* Start hidden */
-      max-height: 0;
-      opacity: 0;
-      transition: max-height 0.6s ease, opacity 0.6s ease;
-    }
-
-    /* Visible state */
-    .sneak-peek.show {
-      max-height: 1000px; /* big enough to show content */
-      opacity: 1;
-    }
-
-    .sneak-peek h2 {
-      color: #60a5fa;
-      margin-bottom: 10px;
-      font-size: 1.5rem;
-    }
-
-    .sneak-peek a {
-      color: #93c5fd;
-      text-decoration: underline;
-    }
-
-    .sneak-peek a:hover {
-      color: #bfdbfe;
-    }
-  </style>
+</style>
 </head>
 <body>
-  <div class="bg-circle"></div>
-  <div class="bg-circle"></div>
 
-  <img src="logo.png" alt="Aurze Central Roleplay Logo" class="logo" />
+<!-- Splash Screen -->
+<div id="splash">
+  <h1>Azure Central Colorado</h1>
+</div>
 
-  <h1>Aurze Central Roleplay</h1>
-  <p>We’re building something awesome. Stay tuned!</p>
+<!-- Main Content -->
+<div id="mainContent">
+  <!-- Navbar -->
+  <nav>
+    <button class="nav-btn" onclick="location.href='staff-handbook.html'">Staff Handbook</button>
+    <button class="nav-btn" onclick="location.href='chain-of-command.html'">Chain of Command</button>
+    <button class="nav-btn" onclick="window.open('https://discord.gg/yourinvitecode', '_blank')">Discord Server</button>
+    <button class="nav-btn" onclick="location.href='booster-perks.html'">Booster Perks</button>
+    <button class="nav-btn" onclick="window.open('https://discord.gg/yourinvitecode', '_blank')">Main Invite Link</button>
+  </nav>
 
-  <!-- Buttons -->
-  <div class="btn-container">
-    <a href="https://discord.gg/PDUDWrJcSn" target="_blank" class="btn" rel="noopener">Join our Discord</a>
-    <button class="btn" id="peekBtn">👀 Sneak Peek</button>
+  <!-- Page Content -->
+  <div class="content">
+    <h2>About Us</h2>
+    <p>Welcome to Aurze Central Roleplay! We are building an immersive roleplay experience in Colorado. Stay tuned and explore our resources using the menu above.</p>
+
+    <!-- Discord Embed Section -->
+    <div class="discord-widget">
+      <iframe src="https://canary.discord.com/widget?id=1383846821801230590&theme=dark" 
+              allowtransparency="true" frameborder="0" 
+              sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
+      </iframe>
+    </div>
   </div>
+</div>
 
-  <!-- Sneak Peek Section -->
-  <div class="sneak-peek" id="sneakPeek">
-    <h2>Staff Handbook (Preview)</h2>
-    <p>Here’s a glimpse of what’s coming soon for our team. Check out the early version of our <a href="staff-handbook.html" target="_blank" rel="noopener">Staff Handbook</a> and resources we're building for ACRP staff.</p>
+<script>
+  // Splash animation handling
+  window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      const splash = document.getElementById('splash');
+      splash.style.display = 'none';
+      document.getElementById('mainContent').style.display = 'flex';
+    }, 3000); // Duration matches fadeInOut animation
+  });
+</script>
 
-    <h2>Development Progress</h2>
-    <ul>
-      <li>✔️ Core Roleplay Systems Setup</li>
-      <li>🛠️ Vehicle and Economy Balancing</li>
-      <li>🚧 Custom Map Additions</li>
-      <li>📜 Staff and Rules Drafting</li>
-    </ul>
-  </div>
-
-  <footer>© 2025 Aurze Central Roleplay. All Rights Reserved.</footer>
-
-  <script>
-    const peekBtn = document.getElementById('peekBtn');
-    const sneakPeek = document.getElementById('sneakPeek');
-    let shown = false;
-
-    peekBtn.addEventListener('click', () => {
-      shown = !shown;
-      if (shown) {
-        sneakPeek.classList.add('show');
-        peekBtn.textContent = '🔒 Hide Sneak Peek';
-
-        // Scroll sneak peek into view smoothly
-        sneakPeek.scrollIntoView({ behavior: 'smooth' });
-      } else {
-        sneakPeek.classList.remove('show');
-        peekBtn.textContent = '👀 Sneak Peek';
-
-        // Scroll back to top (logo)
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    });
-  </script>
 </body>
 </html>
