@@ -14,8 +14,8 @@ body, html {
 /* Splash */
 #splash {
   position:fixed; top:0; left:0; right:0; bottom:0;
-  display:flex; flex-direction:column; justify-content:center; align-items:center;
-  background:#0c1e33; z-index:9999; overflow:hidden;
+  display:flex; justify-content:center; align-items:center;
+  background:#0c1e33; z-index:9999;
 }
 #splash h1 {
   font-size:3rem; font-weight:900; color:#4da3ff;
@@ -111,7 +111,7 @@ footer img:hover {
 <img src="https://cdn.discordapp.com/attachments/1430654910734667817/1433073192489975819/Azure-Central_1.png"
      alt="Server Logo"
      id="serverLogo"
-     onclick="window.open('https://discord.gg/PDUDWrJcSn','_blank')">
+     onclick="document.getElementById('discordModal').style.display='block';">
 
 <!-- Splash Screen -->
 <div id="splash">
@@ -125,7 +125,6 @@ footer img:hover {
     <button id="staffBtn">Staff Handbook</button>
     <button id="chainBtn">Chain of Command</button>
     <button id="boosterBtn">Discord Booster Perks</button>
-    <button id="discordBtn">Discord Invite</button>
   </nav>
 
   <section id="aboutUs">
@@ -145,16 +144,14 @@ footer img:hover {
   </footer>
 </div>
 
-<!-- Modal -->
+<!-- Discord Modal with Embed -->
 <div id="discordModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Discord Server Widget">
   <div class="modal-content">
     <span class="close-btn" id="closeModal" role="button" aria-label="Close Modal">&times;</span>
-    <iframe srcdoc='
-      <html>
-        <body style="margin:0;padding:0;">
-          <iframe src="https://canary.discord.com/widget?id=1383846821801230590&theme=dark" width="100%" height="400" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
-        </body>
-      </html>' width="100%" height="400" frameborder="0"></iframe>
+    <!-- Discord Embed -->
+    <iframe src="https://canary.discord.com/widget?id=1383846821801230590&theme=dark"
+            width="100%" height="500" allowtransparency="true" frameborder="0"
+            sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
   </div>
 </div>
 
@@ -196,10 +193,6 @@ document.getElementById('boosterBtn').onclick = () => { alert('Discord server Bo
 
 // Discord modal
 const modal = document.getElementById('discordModal');
-document.getElementById('discordBtn').onclick = () => {
-  modal.style.display='block';
-  modal.setAttribute('aria-hidden','false');
-};
 document.getElementById('closeModal').onclick = () => {
   modal.style.display='none';
   modal.setAttribute('aria-hidden','true');
