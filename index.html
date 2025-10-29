@@ -11,66 +11,37 @@
 
   /* Splash Screen */
   #splash {
-    position: fixed;
-    top:0; left:0; width:100%; height:100%;
+    position: fixed; top:0; left:0; width:100%; height:100%;
     background-color: #0d1117;
     display: flex; flex-direction: column; justify-content:center; align-items:center;
     z-index: 9999;
   }
-  #splashLogo {
-    width: 150px;
-    animation: bounce 1s infinite;
-  }
+  #splashLogo { width: 150px; animation: bounce 1s infinite; }
   #splashText {
-    font-size: 1.8rem;
-    margin-top: 20px;
+    font-size: 1.8rem; margin-top: 20px;
     background: linear-gradient(90deg, #00bfff, #fff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     animation: shine 2s infinite linear;
   }
-  @keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
-  }
-  @keyframes shine {
-    0% { background-position: -200px; }
-    100% { background-position: 200px; }
-  }
-  @keyframes splashFadeOut {
-    to { opacity:0; visibility:hidden; }
-  }
+  @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+  @keyframes shine { 0% { background-position: -200px; } 100% { background-position: 200px; } }
+  @keyframes splashFadeOut { to { opacity:0; visibility:hidden; } }
 
   /* Navbar */
   .navbar {
-    position: fixed;
-    top:0; left:0; width:100%; height:50px;
-    background-color: rgba(0,0,0,0.8);
-    display:flex; align-items:center; justify-content:flex-start; padding:0 20px;
+    position: fixed; top:0; left:0; width:100%; height:50px;
+    background-color: rgba(0,0,0,0.8); display:flex; align-items:center; justify-content:flex-start; padding:0 20px;
     z-index: 500;
   }
   .navbar button {
-    margin-right:15px;
-    padding:6px 12px;
-    border:none;
-    background: #111;
-    color:#fff;
-    cursor:pointer;
-    border-radius:5px;
+    margin-right:15px; padding:6px 12px; border:none;
+    background: #111; color:#fff; cursor:pointer; border-radius:5px;
     transition: transform 0.2s ease, background-color 0.2s ease;
   }
-  .navbar button:hover {
-    transform: scale(1.05);
-    background-color: rgba(0, 123, 255, 0.2);
-  }
+  .navbar button:hover { transform: scale(1.05); background-color: rgba(0, 123, 255, 0.2); }
 
   /* Server Logo Top Right */
-  #serverLogo {
-    position: fixed;
-    top:10px; right:10px;
-    width:50px; height:50px;
-    border-radius: 8px;
-  }
+  #serverLogo { position: fixed; top:10px; right:10px; width:50px; height:50px; border-radius: 8px; cursor:pointer; }
 
   /* Main Content */
   .page { display:none; padding:70px 40px; max-width:900px; margin:auto; line-height:1.6; }
@@ -78,55 +49,25 @@
 
   /* About Fade-in */
   #about p, #about ul, #about hr {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
+    opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease;
   }
-  #about.active p, #about.active ul, #about.active hr {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  #about.active p, #about.active ul, #about.active hr { opacity: 1; transform: translateY(0); }
 
   /* Footer */
-  footer {
-    position: relative;
-    text-align:center;
-    padding:15px;
-    background: #111;
-    margin-top:40px;
-    color:#ccc;
-  }
-  #footerPFP {
-    width:30px;
-    height:30px;
-    border-radius:50%;
-    vertical-align:middle;
-    margin-left:5px;
-  }
-  #footerArrow {
-    position: absolute;
-    bottom:10px; left:55px;
-    font-size:12px; color:#fff; cursor:pointer;
-    animation: bounceArrow 1.2s infinite; user-select:none;
-  }
-  @keyframes bounceArrow {
-    0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-3px);}
-  }
+  footer { position: relative; text-align:center; padding:15px; background: #111; margin-top:40px; color:#ccc; }
+  #footerPFP { width:30px; height:30px; border-radius:50%; vertical-align:middle; margin-left:5px; }
+  #footerArrow { position: absolute; bottom:10px; left:55px; font-size:12px; color:#fff; cursor:pointer;
+                 animation: bounceArrow 1.2s infinite; user-select:none; }
+  @keyframes bounceArrow { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-3px);} }
 
   /* Modal */
-  .modal {
-    display:none; position:fixed; top:0; left:0; width:100%; height:100%;
-    background:rgba(0,0,0,0.8); justify-content:center; align-items:center;
-    z-index:1000;
-  }
+  .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+           background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:1000; }
   .modalContent {
     background:#111; padding:20px; border-radius:10px; max-width:600px; width:90%; max-height:80%;
-    overflow-y:auto; color:#fff;
+    overflow-y:auto; color:#fff; position:relative;
   }
-  .closeBtn {
-    float:right; cursor:pointer; font-weight:bold; font-size:1.2rem;
-  }
+  .closeBtn { position:absolute; top:10px; right:15px; cursor:pointer; font-weight:bold; font-size:1.2rem; }
 
   /* Booster Nitro Theme */
   #booster { background:linear-gradient(90deg,#9146FF,#b37fff); padding:20px; border-radius:8px; }
@@ -137,7 +78,7 @@
 
 <!-- Splash -->
 <div id="splash">
-  <img id="splashLogo" src="https://cdn.discordapp.com/attachments/1430654910734667817/1433073192489975819/Azure-Central_1.png?ex=69035cea&is=69020b6a&hm=6a0d23bec3abb86f27df70fa807285c73517617983206e7343987b2f0d8a5c0b&" alt="Logo">
+  <img id="splashLogo" src="https://cdn.discordapp.com/attachments/1430654910734667817/1433073192489975819/Azure-Central_1.png" alt="Logo">
   <div id="splashText">Azure Central Colorado</div>
 </div>
 
@@ -147,10 +88,11 @@
   <button onclick="openModal('handbookModal')">Staff Handbook</button>
   <button onclick="openModal('cocModal')">Chain of Command</button>
   <button onclick="openModal('boosterModal')">Booster Perks</button>
+  <button onclick="window.open('https://discord.gg/your-invite', '_blank')">Invite Link</button>
 </div>
 
 <!-- Server Logo Top Right -->
-<img id="serverLogo" src="https://cdn.discordapp.com/attachments/1430654910734667817/1433073192489975819/Azure-Central_1.png?ex=69035cea&is=69020b6a&hm=6a0d23bec3abb86f27df70fa807285c73517617983206e7343987b2f0d8a5c0b&" alt="Server Logo">
+<img id="serverLogo" src="https://cdn.discordapp.com/attachments/1430654910734667817/1433073192489975819/Azure-Central_1.png" alt="Server Logo">
 
 <!-- Pages -->
 <div id="about" class="page">
@@ -236,42 +178,36 @@
 <div id="boosterModal" class="modal">
   <div class="modalContent" id="booster">
     <span class="closeBtn" onclick="closeModal('boosterModal')">&times;</span>
-    <p>Boosters enjoy exclusive perks with a Nitro Purple theme!</p>
-    <p>More features coming soon...</p>
+    <h3>Server Booster Perks</h3>
+    <ul>
+      <li>Exclusive channels</li>
+      <li>Special Roles & Color</li>
+      <li>Custom emojis</li>
+      <li>Early access to events</li>
+    </ul>
   </div>
 </div>
 
 <!-- Footer -->
 <footer>
-  Made by Lun4 <3
-  <img id="footerPFP" src="https://cdn.discordapp.com/attachments/1430647842569064570/1432787476749221998/new.png?ex=6902fb92&is=6901aa12&hm=e590150e822c4eed1062e83ee7e697ad3a9f8c950e13c8e78366990905cac506&" alt="Lun4 PFP">
-  <div id="footerArrow" onclick="window.open('http://they-luv-lunaaa.github.io/', '_blank')">click me &lt;3 &#8595;</div>
+  Made by Lun4 <3 <img id="footerPFP" src="https://cdn.discordapp.com/attachments/1430647842569064570/1432787476749221998/new.png">
+  <div id="footerArrow" onclick="window.open('http://they-luv-lunaaa.github.io/', '_blank')">click me &lt;3</div>
 </footer>
 
 <script>
-  // Splash fade and About reveal
+  // Splash fade out on load
   window.addEventListener('load', () => {
-    const splash = document.getElementById('splash');
-    const about = document.getElementById('about');
-    const aboutItems = document.querySelectorAll('#about p, #about ul, #about hr');
-
     setTimeout(() => {
-      splash.style.animation = 'splashFadeOut 1s forwards';
-      setTimeout(() => {
-        splash.style.display = 'none';
-        about.classList.add('active');
-        aboutItems.forEach((el, i) => setTimeout(()=> el.style.opacity = 1, i*200));
-      },1000);
+      document.getElementById('splash').style.animation = 'splashFadeOut 1s forwards';
+      setTimeout(()=> openPage('about'),1000);
     },1500);
   });
 
-  // Page open function
   function openPage(pageId){
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById(pageId).classList.add('active');
   }
 
-  // Modal functions
   function openModal(modalId){
     document.getElementById(modalId).style.display = 'flex';
   }
@@ -279,19 +215,32 @@
     document.getElementById(modalId).style.display = 'none';
   }
 
-  // Discord modal on logo click
-  document.getElementById('serverLogo').addEventListener('click', () => {
-    alert('Discord Modal Open Here'); // Replace with actual modal content if desired
+  // Discord modal opens on server logo click
+  document.getElementById('serverLogo').addEventListener('click', ()=>{
+    openModal('discordModal');
   });
 
-  // Smooth scrolling for any anchor links
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  // Smooth scroll for anchors
+  document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
     anchor.addEventListener('click', function(e){
       e.preventDefault();
       document.querySelector(this.getAttribute('href')).scrollIntoView({behavior:'smooth'});
     });
   });
-</script>
 
+  // Create Discord modal dynamically
+  let discordModal = document.createElement('div');
+  discordModal.id = 'discordModal';
+  discordModal.className = 'modal';
+  discordModal.innerHTML = `
+    <div class="modalContent">
+      <span class="closeBtn" onclick="closeModal('discordModal')">&times;</span>
+      <h3>Join Our Discord!</h3>
+      <p>Click below to join our server:</p>
+      <a href="https://discord.gg/your-invite" target="_blank" style="color:#00bfff;">Join Discord</a>
+    </div>`;
+  document.body.appendChild(discordModal);
+
+</script>
 </body>
 </html>
