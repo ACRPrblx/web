@@ -11,17 +11,25 @@ body, html {
   background:#0c1e33; color:#b0c8e3; scroll-behavior:smooth;
 }
 
-/* Splash */
-#splash {
-  position:fixed; top:0; left:0; right:0; bottom:0;
-  display:flex; justify-content:center; align-items:center;
-  background:#0c1e33; z-index:9999;
-}
+<!-- Splash Screen -->
+<div id="splash">
+  <div style="text-align:center;">
+    <img src="https://cdn.discordapp.com/attachments/1430654910734667817/1433073192489975819/Azure-Central_1.png?ex=69035cea&is=69020b6a&hm=6a0d23bec3abb86f27df70fa807285c73517617983206e7343987b2f0d8a5c0b&" 
+         alt="Server Logo"
+         style="width:150px; margin-bottom:20px; animation:fadeInOutLogo 4s ease forwards;">
+    <h1>Azure Central Colorado</h1>
+  </div>
+</div>
+
+<style>
+/* Splash Animations */
+@keyframes fadeInOutText {0%,100%{opacity:0;}50%{opacity:1;}}
+@keyframes fadeInOutLogo {0%,100%{opacity:0; transform:scale(0.8);}50%{opacity:1; transform:scale(1);}}
 #splash h1 {
   font-size:3rem; font-weight:900; color:#4da3ff;
   animation:fadeInOutText 4s ease forwards;
 }
-@keyframes fadeInOutText {0%,100%{opacity:0;}50%{opacity:1;}}
+</style>
 
 /* Main Content */
 #main-content { display:none; padding:20px; transition:opacity 1s ease; }
