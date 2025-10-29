@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Aurze Central Roleplay | Coming Soon</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet" />
   <style>
     * {
       margin: 0;
@@ -14,21 +14,22 @@
     }
 
     body {
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
       background: radial-gradient(circle at top, #0f172a, #111827);
       color: #fff;
       text-align: center;
-      overflow: hidden;
+      padding: 40px 20px 80px; /* padding bottom to avoid footer overlap */
+      overflow-x: hidden;
       transition: background 1s ease;
     }
 
     /* Floating circles */
     .bg-circle {
-      position: absolute;
+      position: fixed;
       width: 400px;
       height: 400px;
       background: #3b82f6;
@@ -36,6 +37,8 @@
       border-radius: 50%;
       animation: float 6s ease-in-out infinite alternate;
       z-index: 0;
+      pointer-events: none;
+      user-select: none;
     }
 
     .bg-circle:nth-child(1) {
@@ -50,8 +53,12 @@
     }
 
     @keyframes float {
-      from { transform: translateY(0px); }
-      to { transform: translateY(30px); }
+      from {
+        transform: translateY(0px);
+      }
+      to {
+        transform: translateY(30px);
+      }
     }
 
     /* Logo + Glow */
@@ -62,6 +69,7 @@
       transform: translateY(-20px);
       animation: fadeIn 1.5s ease-out forwards, glow 3s ease-in-out infinite alternate;
       z-index: 1;
+      user-select: none;
     }
 
     @keyframes fadeIn {
@@ -72,8 +80,12 @@
     }
 
     @keyframes glow {
-      from { filter: drop-shadow(0 0 0px #3b82f6); }
-      to { filter: drop-shadow(0 0 20px #60a5fa); }
+      from {
+        filter: drop-shadow(0 0 0px #3b82f6);
+      }
+      to {
+        filter: drop-shadow(0 0 20px #60a5fa);
+      }
     }
 
     /* Text */
@@ -83,6 +95,7 @@
       margin-top: 20px;
       letter-spacing: 1px;
       z-index: 1;
+      user-select: none;
     }
 
     p {
@@ -90,6 +103,13 @@
       color: #a5b4fc;
       margin-bottom: 40px;
       z-index: 1;
+      user-select: none;
+    }
+
+    /* Buttons container */
+    .btn-container {
+      z-index: 1;
+      margin-bottom: 30px;
     }
 
     /* Buttons */
@@ -103,9 +123,9 @@
       font-weight: 500;
       transition: all 0.3s ease;
       box-shadow: 0 0 10px rgba(88, 101, 242, 0.5);
-      z-index: 1;
       cursor: pointer;
       margin: 0 10px;
+      user-select: none;
     }
 
     .btn:hover {
@@ -115,27 +135,36 @@
     }
 
     footer {
-      position: absolute;
-      bottom: 15px;
       font-size: 0.9rem;
       color: #aaa;
       letter-spacing: 0.5px;
+      margin-top: 60px;
+      user-select: none;
       z-index: 1;
     }
 
-    /* Sneak Peek Section */
+    /* Sneak Peek Section with slide down + fade in */
     .sneak-peek {
-      display: none;
-      margin-top: 40px;
-      width: 80%;
       max-width: 800px;
       background: rgba(255, 255, 255, 0.05);
       padding: 25px;
       border-radius: 10px;
       text-align: left;
-      box-shadow: 0 0 20px rgba(59,130,246,0.1);
-      animation: fadeIn 0.8s ease-out;
-      z-index: 1;
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.1);
+      overflow: hidden;
+      margin-top: 20px;
+      user-select: text;
+
+      /* Start hidden */
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.6s ease, opacity 0.6s ease;
+    }
+
+    /* Visible state */
+    .sneak-peek.show {
+      max-height: 1000px; /* big enough to show content */
+      opacity: 1;
     }
 
     .sneak-peek h2 {
@@ -152,8 +181,6 @@
     .sneak-peek a:hover {
       color: #bfdbfe;
     }
-
-    .hidden { display: none; }
   </style>
 </head>
 <body>
@@ -166,15 +193,15 @@
   <p>We’re building something awesome. Stay tuned!</p>
 
   <!-- Buttons -->
-  <div>
-    <a href="https://discord.gg/yourinvitecode" target="_blank" class="btn">Join our Discord</a>
+  <div class="btn-container">
+    <a href="https://discord.gg/PDUDWrJcSn" target="_blank" class="btn" rel="noopener">Join our Discord</a>
     <button class="btn" id="peekBtn">👀 Sneak Peek</button>
   </div>
 
-  <!-- Hidden Sneak Peek Section -->
+  <!-- Sneak Peek Section -->
   <div class="sneak-peek" id="sneakPeek">
     <h2>Staff Handbook (Preview)</h2>
-    <p>Here’s a glimpse of what’s coming soon for our team. Check out the early version of our <a href="staff-handbook.html" target="_blank">Staff Handbook</a> and resources we're building for ACRP staff.</p>
+    <p>Here’s a glimpse of what’s coming soon for our team. Check out the early version of our <a href="staff-handbook.html" target="_blank" rel="noopener">Staff Handbook</a> and resources we're building for ACRP staff.</p>
 
     <h2>Development Progress</h2>
     <ul>
@@ -194,8 +221,19 @@
 
     peekBtn.addEventListener('click', () => {
       shown = !shown;
-      sneakPeek.style.display = shown ? 'block' : 'none';
-      peekBtn.textContent = shown ? '🔒 Hide Sneak Peek' : '👀 Sneak Peek';
+      if (shown) {
+        sneakPeek.classList.add('show');
+        peekBtn.textContent = '🔒 Hide Sneak Peek';
+
+        // Scroll sneak peek into view smoothly
+        sneakPeek.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        sneakPeek.classList.remove('show');
+        peekBtn.textContent = '👀 Sneak Peek';
+
+        // Scroll back to top (logo)
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     });
   </script>
 </body>
