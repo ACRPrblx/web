@@ -14,15 +14,10 @@ body, html { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; backgr
   display:flex; flex-direction:column; justify-content:center; align-items:center;
   background:#0c1e33; z-index:9999; overflow:hidden;
 }
-#splash img {
-  width:200px; margin-bottom:20px;
-  animation:fadeInOutLogo 4s ease forwards;
-}
 #splash h1 {
   font-size:3rem; font-weight:900; color:#4da3ff;
   animation:fadeInOutText 4s ease forwards;
 }
-@keyframes fadeInOutLogo {0%,100%{opacity:0; transform:scale(0.8);}50%{opacity:1; transform:scale(1);}}
 @keyframes fadeInOutText {0%,100%{opacity:0;}50%{opacity:1;}}
 
 /* Main Content */
@@ -34,7 +29,6 @@ nav {
   background:#144272; display:flex; align-items:center; padding:10px 20px;
   position:sticky; top:0; z-index:50;
 }
-nav img { width:40px; height:40px; margin-right:15px; }
 nav h2 { color:#a0c8ff; margin-right:25px; font-weight:700; }
 nav button {
   background:transparent; color:#d1e3ff; border:2px solid #4da3ff;
@@ -43,6 +37,13 @@ nav button {
 }
 nav button:hover { background:#4da3ff; color:#fff; transform:scale(1.1);}
 nav button:active { transform:scale(0.95); }
+
+/* Server logo top-right */
+#serverLogo {
+  position:fixed; top:10px; right:10px; width:50px; height:50px; z-index:60;
+  border-radius:8px; box-shadow:0 0 10px #4da3ff;
+  cursor:pointer;
+}
 
 /* Sections */
 section {
@@ -79,20 +80,29 @@ section p { line-height:1.6; color:#d0e1ff; }
 }
 #sneakPeekBtn:hover { transform:scale(1.05); background:#78aaff;}
 #sneakPeekBtn:active { transform:scale(0.95);}
+
+/* Footer */
+footer {
+  background:#102c55; color:#d0e1ff; text-align:center; padding:15px 0; margin-top:40px;
+  display:flex; align-items:center; justify-content:center;
+  gap:10px; font-weight:bold; font-size:1rem;
+}
+footer img { width:30px; height:30px; border-radius:50%; box-shadow:0 0 5px #4da3ff; }
 </style>
 </head>
 <body>
 
+<!-- Server Logo -->
+<img src="https://cdn.discordapp.com/attachments/1430654910734667817/1433073192489975819/Azure-Central_1.png" alt="Server Logo" id="serverLogo" onclick="window.open('https://discord.gg/YOUR_INVITE_LINK','_blank')">
+
 <!-- Splash Screen -->
 <div id="splash">
-  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAYAAAD6kHChAAA..." alt="ACRP Logo">
   <h1>Azure Central Colorado</h1>
 </div>
 
 <!-- Main Content -->
 <div id="main-content">
   <nav>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAYAAAD6kHChAAA..." alt="ACRP Logo">
     <h2>Azure Central Colorado</h2>
     <button id="staffBtn">Staff Handbook</button>
     <button id="chainBtn">Chain of Command</button>
@@ -110,6 +120,11 @@ section p { line-height:1.6; color:#d0e1ff; }
     <h3>Sneak Peek</h3>
     <p>Here is what we have made so far...</p>
   </section>
+
+  <footer>
+    <span>Made by Lun4 ❤️</span>
+    <img src="https://cdn.discordapp.com/attachments/1430647842569064570/1432787476749221998/new.png" alt="Lun4 Discord PFP">
+  </footer>
 </div>
 
 <!-- Modal -->
