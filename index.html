@@ -3,196 +3,210 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Azure Central Colorado</title>
+<title>ACRP</title>
 <style>
-  /* ===== Reset & Basic Styles ===== */
-  * { margin:0; padding:0; box-sizing:border-box; font-family:sans-serif; }
-  body { background:#121212; color:#fff; overflow-x:hidden; }
-  a { color:#7289da; text-decoration:none; }
+  /* --- Reset --- */
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body, html { width:100%; height:100%; font-family:'Arial', sans-serif; scroll-behavior: smooth; }
 
-  /* ===== Splash ===== */
+  /* --- Splash Screen --- */
   #splash {
-    position:fixed; top:0; left:0; width:100%; height:100%;
-    background:#121212; display:flex; flex-direction:column;
-    justify-content:center; align-items:center; z-index:1000;
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:#0d47a1; /* Blue theme */
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+    color:white;
   }
-  #splash img { width:150px; animation: bounce 2s infinite; }
-  #splash p { margin-top:20px; font-size:1.5em; }
+
+  #splash-logo {
+    width:200px;
+    animation: bounce 2s infinite;
+    margin-bottom:20px;
+  }
 
   @keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {transform:translateY(0);}
-    40% {transform:translateY(-30px);}
-    60% {transform:translateY(-15px);}
+    0%,20%,50%,80%,100% { transform: translateY(0); }
+    40% { transform: translateY(-25px); }
+    60% { transform: translateY(-15px); }
   }
 
-  /* ===== Navbar / Bookmarks ===== */
+  #splash-text {
+    font-size:2rem;
+    font-weight:bold;
+    background: linear-gradient(90deg, #fff, #00e5ff, #fff);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 3s linear infinite;
+    text-align:center;
+  }
+
+  @keyframes shine {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  /* --- Main Content --- */
+  #main-content { display:none; padding:20px; }
+
+  /* --- Navbar --- */
   nav {
-    display:flex; justify-content:space-between; align-items:center;
-    background:#1e1e1e; padding:10px 20px; position:sticky; top:0; z-index:10;
-  }
-  nav .left, nav .right { display:flex; align-items:center; gap:15px; }
-  nav button {
-    padding:8px 15px; border:none; border-radius:5px; cursor:pointer;
-    transition:0.2s; background:#2c2c2c; color:#fff;
-  }
-  nav button:hover { background:#7289da; }
-
-  /* ===== Server Logo Top Right ===== */
-  #serverLogo {
-    width:50px; height:50px; border-radius:50%; position:fixed; top:10px; right:10px; z-index:20;
+    position: sticky;
+    top:0;
+    background:#1e88e5;
+    padding:10px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    z-index:100;
   }
 
-  /* ===== Sections ===== */
-  section { padding:50px 20px; max-width:900px; margin:0 auto; }
-  h2 { margin-bottom:20px; }
+  nav .logo { width:50px; height:50px; }
+  nav ul { list-style:none; display:flex; gap:15px; }
+  nav ul li { cursor:pointer; padding:5px 10px; background:rgba(255,255,255,0.2); border-radius:5px; transition:0.3s; }
+  nav ul li:hover { background:rgba(255,255,255,0.4); }
 
-  /* ===== Discord Modal ===== */
-  #discordModal {
-    display:none; position:fixed; top:0; left:0; width:100%; height:100%;
-    background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:50;
-  }
+  /* --- Sections --- */
+  section { margin:40px 0; }
+
+  /* Chain of Command */
+  #chain-content { display:none; background:#e3f2fd; padding:15px; border-radius:8px; }
+
+  /* Booster Perks */
+  #booster-content { display:none; background:#722ed1; color:white; padding:15px; border-radius:8px; }
+
+  /* Discord Modal */
+  #discordModal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:1000; }
   #discordModal iframe { border-radius:10px; }
 
-  /* ===== Booster Perks ===== */
-  #boosterPerks { display:none; background:#8a2be2; padding:20px; border-radius:10px; }
-
-  /* ===== Chain of Command ===== */
-  #chainSection h3 { cursor:pointer; }
-  #chainContent { display:none; margin-top:15px; line-height:1.6; }
-
-  /* ===== Footer ===== */
-  footer {
-    display:flex; align-items:center; justify-content:center; gap:10px;
-    padding:20px; background:#1e1e1e;
-  }
+  /* Footer */
+  footer { background:#0d47a1; color:white; padding:10px; display:flex; align-items:center; gap:10px; justify-content:center; }
   footer img { width:30px; height:30px; border-radius:50%; }
+
 </style>
 </head>
 <body>
 
 <!-- Splash -->
 <div id="splash">
-  <img src="https://cdn.discordapp.com/attachments/1430654910734667817/1433073192489975819/Azure-Central_1.png?ex=69035cea&is=69020b6a&hm=6a0d23bec3abb86f27df70fa807285c73517617983206e7343987b2f0d8a5c0b&" alt="Server Logo">
-  <p>Lun4.exe is making! Stay Tuned!!! <img src="https://cdn.discordapp.com/attachments/1430647842569064570/1432787476749221998/new.png?ex=6902fb92&is=6901aa12&hm=e590150e822c4eed1062e83ee7e697ad3a9f8c950e13c8e78366990905cac506&" width="30"></p>
+  <img id="splash-logo" src="https://cdn.discordapp.com/attachments/1430654910734667817/1433073192489975819/Azure-Central_1.png?ex=69035cea&is=69020b6a&hm=6a0d23bec3abb86f27df70fa807285c73517617983206e7343987b2f0d8a5c0b&" alt="Server Logo">
+  <div id="splash-text">Lun4.exe is making! Stay Tuned!!!</div>
 </div>
 
 <!-- Navbar -->
 <nav>
-  <div class="left">
-    <button onclick="showSection('staffHandbook')">Staff Handbook</button>
-    <button onclick="toggleChain()">Chain of Command</button>
-    <button onclick="toggleBooster()">Booster Perks</button>
-    <button onclick="openDiscord()">Discord Server</button>
-  </div>
+  <img class="logo" src="https://cdn.discordapp.com/attachments/1430654910734667817/1433073192489975819/Azure-Central_1.png?ex=69035cea&is=69020b6a&hm=6a0d23bec3abb86f27df70fa807285c73517617983206e7343987b2f0d8a5c0b&" alt="Server Logo">
+  <ul>
+    <li onclick="toggleChain()">Chain of Command</li>
+    <li onclick="window.open('https://docs.google.com/document/d/1Y1GtNYDJhW-TmuSFCQwvP3xCOCR7uBQp-ky5fHMhDE8/edit?usp=sharing','_blank')">Staff Handbook</li>
+    <li onclick="toggleBooster()">Booster Perks</li>
+    <li onclick="openDiscord()">Discord Server</li>
+  </ul>
 </nav>
 
-<!-- Server Logo fixed -->
-<img id="serverLogo" src="https://cdn.discordapp.com/attachments/1430654910734667817/1433073192489975819/Azure-Central_1.png?ex=69035cea&is=69020b6a&hm=6a0d23bec3abb86f27df70fa807285c73517617983206e7343987b2f0d8a5c0b&" alt="Server Logo">
+<!-- Main Content -->
+<div id="main-content">
+  <section id="chain-command">
+    <h2>Chain of Command</h2>
+    <button onclick="toggleChain()">Toggle Chain of Command</button>
+    <div id="chain-content">
+      <pre>
+-- 𝓐𝓒𝓡𝓟 | Owner
 
-<!-- Sections -->
-<section id="staffHandbook" style="display:none;">
-  <h2>Staff Handbook</h2>
-  <iframe src="https://docs.google.com/document/d/1Y1GtNYDJhW-TmuSFCQwvP3xCOCR7uBQp-ky5fHMhDE8/preview" width="100%" height="600"></iframe>
-</section>
+-- 𝓐𝓒𝓡𝓟 | Co-Owner
+-- 𝓐𝓒𝓡𝓟 | Acting Owner
 
-<section id="boosterPerks">
-  <h2>Booster Perks</h2>
-  <p style="color:#fff;">This section shows perks for server boosters! (Discord Nitro Purple Theme)</p>
-</section>
+-- 𝓐𝓒𝓡𝓟 | Head of Leadership Team
+-- 𝓐𝓒𝓡𝓟 | Senior Leadership
+-- 𝓐𝓒𝓡𝓟 | Junior Leadership
+-- 𝓐𝓒𝓡𝓟 | Leadership Team Member
 
-<section id="chainSection">
-  <h2 onclick="toggleChain()">Chain of Command &#9660;</h2>
-  <div id="chainContent">
-    <strong>-- 𝓐𝓒𝓡𝓟 | Owner</strong><br><br>
-    
-    <strong>-- 𝓐𝓒𝓡𝓟 | Co-Owner</strong><br>
-    <strong>-- 𝓐𝓒𝓡𝓟 | Acting Owner</strong><br><br>
-    
-    <strong>-- 𝓐𝓒𝓡𝓟 | Head of Leadership Team</strong><br>
-    <strong>-- 𝓐𝓒𝓡𝓟 | Senior Leadership</strong><br>
-    <strong>-- 𝓐𝓒𝓡𝓟 | Junior Leadership</strong><br>
-    <strong>-- 𝓐𝓒𝓡𝓟 | Leadership Team Member</strong><br><br>
-    
-    <strong>-- 𝓐𝓒𝓡𝓟 | Community Director</strong><br>
-    <strong>-- 𝓐𝓒𝓡𝓟 | Deputy Community Director</strong><br>
-    <strong>-- 𝓐𝓒𝓡𝓟 | Assistant Community Director</strong><br>
-    <strong>-- 𝓐𝓒𝓡𝓟 | Community Team Member</strong><br><br>
-    
-    <strong>-- 𝓐𝓒𝓡𝓟 | Director of Internal Affairs</strong><br>
-    <strong>-- 𝓐𝓒𝓡𝓟 | Deputy Internal Affairs Director</strong><br>
-    <strong>-- 𝓐𝓒𝓡𝓟 | Internal Affairs Agent</strong><br>
-    <strong>-- 𝓐𝓒𝓡𝓟 | Trial Internal Affairs</strong><br>
-    <strong>-- 𝓐𝓒𝓡𝓟 | Internal Affairs Team Member</strong><br><br>
-    
-    <strong>-- 𝓐𝓒𝓡𝓟 | Head of Management</strong><br>
-    <strong>-- 𝓐𝓒𝓡𝓟 | Senior Management</strong><br>
-    <strong>-- 𝓐𝓒𝓡𝓟 | Junior Management</strong><br>
-    <strong>-- 𝓐𝓒𝓡𝓟 | Trial Management</strong><br>
-    <strong>-- 𝓐𝓒𝓡𝓟 | Management Team Member</strong><br><br>
-    
-    <strong>-- 𝓐𝓒𝓡𝓟 | Administration Team</strong><br>
-    <strong>-- 𝓐𝓒𝓡𝓟 | Senior Administrator</strong><br>
-    <strong>-- 𝓐𝓒𝓻𝓟 | Junior Administrator</strong><br>
-    <strong>-- 𝓐𝓒𝓡𝓟 | Administration Member</strong><br><br>
-    
-    <strong>-- 𝓐𝓒𝓡𝓟 | Head of Moderation</strong><br>
-    <strong>-- 𝓐𝓒𝓡𝓟 | Senior Moderator</strong><br>
-    <strong>-- 𝓐𝓒𝓡𝓟 | Junior Moderator</strong><br>
-    <strong>-- 𝓐𝓒𝓡𝓟 | Trial Moderator</strong><br>
-    <strong>-- 𝓐𝓒𝓡𝓟 | Moderation Team Member</strong><br>
-  </div>
-</section>
+-- 𝓐𝓒𝓡𝓟 | Community Director
+-- 𝓐𝓒𝓡𝓟 | Deputy Community Director
+-- 𝓐𝓒𝓡𝓟 | Assistant Community Director
+-- 𝓐𝓒𝓡𝓟 | Community Team Member
+
+-- 𝓐𝓒𝓡𝓟 | Director of Internal Affairs
+-- 𝓐𝓒𝓡𝓟 | Deputy Internal Affairs Director
+-- 𝓐𝓒𝓡𝓟 | Internal Affairs Agent
+-- 𝓐𝓒𝓡𝓟 | Trial Internal Affairs
+-- 𝓐𝓒𝓡𝓟 | Internal Affairs Team Member
+
+-- 𝓐𝓒𝓡𝓟 | Head of Management
+-- 𝓐𝓒𝓡𝓟 | Senior Management
+-- 𝓐𝓒𝓡𝓟 | Junior Management
+-- 𝓐𝓒𝓡𝓟 | Trial Management
+-- 𝓐𝓒𝓡𝓟 | Management Team Member
+
+-- 𝓐𝓒𝓡𝓟 | Administration Team
+-- 𝓐𝓒𝓡𝓟 | Senior Administrator
+-- 𝓐𝓒𝓻𝓟 | Junior Administrator
+-- 𝓐𝓒𝓡𝓟 | Administration Member
+
+-- 𝓐𝓒𝓡𝓟 | Head of Moderation
+-- 𝓐𝓒𝓡𝓟 | Senior Moderator
+-- 𝓐𝓒𝓡𝓟 | Junior Moderator
+-- 𝓐𝓒𝓡𝓟 | Trial Moderator
+-- 𝓐𝓒𝓡𝓟 | Moderation Team Member
+      </pre>
+    </div>
+  </section>
+
+  <section id="booster-section">
+    <h2>Booster Perks</h2>
+    <button onclick="toggleBooster()">Show/Hide Perks</button>
+    <div id="booster-content">
+      <p>Exclusive booster perks! (Discord Nitro Purple theme)</p>
+      <ul>
+        <li>Special Roles</li>
+        <li>Access to secret channels</li>
+        <li>Custom badges</li>
+      </ul>
+    </div>
+  </section>
+</div>
 
 <!-- Discord Modal -->
-<div id="discordModal" onclick="closeDiscord()">
+<div id="discordModal">
   <iframe src="https://canary.discord.com/widget?id=1383846821801230590&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
 </div>
 
 <!-- Footer -->
 <footer>
-  <span>Made by Lun4 ❤️</span>
   <img src="https://cdn.discordapp.com/attachments/1430647842569064570/1432787476749221998/new.png?ex=6902fb92&is=6901aa12&hm=e590150e822c4eed1062e83ee7e697ad3a9f8c950e13c8e78366990905cac506&" alt="Lun4 PFP">
+  <span>Made by Lun4 with &lt;3</span>
 </footer>
 
 <script>
-  // ===== Splash =====
-  window.addEventListener('load', () => {
-    setTimeout(() => { document.getElementById('splash').style.display='none'; }, 3500);
-  });
+  // Splash
+  setTimeout(() => {
+    document.getElementById('splash').style.display = 'none';
+    document.getElementById('main-content').style.display = 'block';
+  }, 4000);
 
-  // ===== Sections =====
-  function showSection(id){
-    const sections = ['staffHandbook','boosterPerks','chainSection'];
-    sections.forEach(s => {
-      document.getElementById(s).style.display = (s===id) ? 'block':'none';
-    });
-  }
-
-  // ===== Chain Toggle =====
+  // Chain Toggle
   function toggleChain(){
-    const content = document.getElementById('chainContent');
-    const header = document.querySelector('#chainSection h2');
-    if(content.style.display === 'none' || content.style.display === '') {
-      content.style.display = 'block';
-      header.innerHTML = "Chain of Command &#9650;";
-    } else {
-      content.style.display = 'none';
-      header.innerHTML = "Chain of Command &#9660;";
-    }
+    const el = document.getElementById('chain-content');
+    el.style.display = el.style.display === 'block' ? 'none' : 'block';
   }
 
-  // ===== Booster Perks Toggle =====
+  // Booster Toggle
   function toggleBooster(){
-    const booster = document.getElementById('boosterPerks');
-    booster.style.display = (booster.style.display==='none' || booster.style.display==='') ? 'block':'none';
+    const el = document.getElementById('booster-content');
+    el.style.display = el.style.display === 'block' ? 'none' : 'block';
   }
 
-  // ===== Discord Modal =====
+  // Discord Modal
   function openDiscord(){
-    document.getElementById('discordModal').style.display='flex';
-  }
-  function closeDiscord(){
-    document.getElementById('discordModal').style.display='none';
+    document.getElementById('discordModal').style.display = 'flex';
+    document.getElementById('discordModal').addEventListener('click', () => {
+      document.getElementById('discordModal').style.display = 'none';
+    });
   }
 </script>
 
