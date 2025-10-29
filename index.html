@@ -72,6 +72,7 @@
   }
   nav .logo {
     width:50px;
+    cursor: pointer;
   }
   nav .menu {
     display: flex;
@@ -151,6 +152,31 @@
     cursor: pointer;
   }
 
+  /* Discord Modal */
+  #discordModal {
+    display: none;
+    position: fixed;
+    top:0; left:0; width:100%; height:100%;
+    background: rgba(0,0,0,0.85);
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+  }
+  #discordModal iframe {
+    width: 350px;
+    height: 500px;
+    border: none;
+    border-radius: 10px;
+  }
+  #discordModal .close {
+    position: absolute;
+    top:20px;
+    right:30px;
+    font-size: 2rem;
+    color:white;
+    cursor: pointer;
+  }
+
   /* Footer */
   footer {
     margin-top: 50px;
@@ -179,12 +205,11 @@
 
 <!-- Navbar -->
 <nav>
-  <img class="logo" src="https://cdn.discordapp.com/attachments/1430654910734667817/1433073192489975819/Azure-Central_1.png" alt="Server Logo">
+  <img class="logo" src="https://cdn.discordapp.com/attachments/1430654910734667817/1433073192489975819/Azure-Central_1.png" alt="Server Logo" onclick="openDiscord()">
   <div class="menu">
     <button onclick="openHandbook()">Staff Handbook</button>
     <button onclick="toggleCoC()">Chain of Command</button>
     <button onclick="toggleBooster()">Booster Perks</button>
-    <button onclick="openDiscord()">Discord Invite</button>
   </div>
 </nav>
 
@@ -230,7 +255,7 @@
 -- 𝓐𝓒𝓡𝓟 | Acting Owner
 ----------------------------------------------
 -- 𝓐𝓒𝓡𝓟 | Head of Leadership Team
--- 𝓐𝓡𝓟 | Senior Leadership
+-- 𝓐𝓒𝓡𝓟 | Senior Leadership
 -- 𝓐𝓒𝓡𝓟 | Junior Leadership
 -- 𝓐𝓒𝓡𝓟 | Leadership Team Member
 ...
@@ -250,9 +275,10 @@
   <iframe src="https://docs.google.com/document/d/1Y1GtNYDJhW-TmuSFCQwvP3xCOCR7uBQp-ky5fHMhDE8/edit?usp=sharing"></iframe>
 </div>
 
-<!-- Discord Invite Modal -->
+<!-- Discord Modal -->
 <div id="discordModal">
-  <iframe src="https://canary.discord.com/widget?id=1383846821801230590&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+  <span class="close" onclick="closeDiscord()">&times;</span>
+  <iframe src="https://canary.discord.com/widget?id=1383846821801230590&theme=dark" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
 </div>
 
 <!-- Footer -->
@@ -287,7 +313,10 @@
     booster.style.display = booster.style.display === 'block' ? 'none' : 'block';
   }
   function openDiscord() {
-    window.open('https://discord.com/invite/YOUR_INVITE_LINK', '_blank');
+    document.getElementById('discordModal').style.display = 'flex';
+  }
+  function closeDiscord() {
+    document.getElementById('discordModal').style.display = 'none';
   }
 </script>
 
